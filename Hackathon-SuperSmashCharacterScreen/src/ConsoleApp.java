@@ -14,7 +14,7 @@ public class ConsoleApp {
 		// UNIT TEST SECTION
 		//////////////////////////////////////////////////////////////////////////////////////////////
 		//Class gameLogicClass = GameLogic.class;
-		Class<GameLogic> gameLogicClass = GameLogic.class;
+		Class gameLogicClass = GameLogic.class;
 		Field[] allFields = gameLogicClass.getDeclaredFields();
 
 		for (Field field : allFields) {
@@ -28,7 +28,7 @@ public class ConsoleApp {
 		System.out.println("Unit testing starting...");
 		GameLogicTest gameLogicTest = new GameLogicTest();
 		
-		Class<GameLogicTest> gameLogicTestClass = GameLogicTest.class;
+		Class gameLogicTestClass = GameLogicTest.class;
 		
 		int totalUnitTests = 0; //Will count how many unit tests we are running
 		int totalPassedTests = 0; //Counts passed unit tests

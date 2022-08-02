@@ -80,8 +80,7 @@ public class Menu {
 				characterMenu(scanner, numPlayers);
 				break;
 			case "2":
-				//int numPlayers = gameSetup(scanner);
-				//characterMenu(scanner, numPlayers);
+				characterInspectMenu(scanner);
 				break;
 			case "x":
 				System.out.println("Exiting Game, Goodbye!");
@@ -95,6 +94,43 @@ public class Menu {
 		} while(!(userInput.equals("x")));
 		
 		scanner.close();
+	}
+	
+	public static void characterInspectMenu(Scanner scanner) {
+		System.out.println();
+		String userInput = "";
+		
+		do {
+			System.out.println("======================================");
+			System.out.println("Character Inspection");
+			System.out.println("======================================");
+			System.out.println("Select a Character you would like to inspect.");
+			System.out.println("Enter [x] to go back to Game Menu.");
+			
+			displayCharacters();
+			userInput = scanner.nextLine();
+			
+			characterPromptInspection(scanner, userInput);
+			
+			System.out.println("======================================");
+			System.out.println("[y] Inspect Another Character");
+			System.out.println("[x] Return to Game Menu");
+			
+			userInput = scanner.nextLine();
+			
+			switch(userInput) {
+			case "y":
+				break;
+			case "x":
+				System.out.println("Returning to Game Menu");
+				break;
+			default:
+				System.out.println("Wrong selection, Returning to Game Menu");
+				userInput = "x";
+				break;
+			}
+			
+		} while (!(userInput.equals("x")));
 	}
 	
 	public static int gameSetup(Scanner scanner) {
@@ -132,16 +168,30 @@ public class Menu {
 		
 	}
 	
-	public static String characterPrompt(Scanner scanner) {
-		
+	public static void displayCharacters() {
 		for(int i = 0; i < gl.getSmashCharListSize(); i++) {
 			System.out.println("[" + i + "] " + gl.getCharNameAtIndex(i));
 		}
+	}
+	
+	public static String characterPrompt(Scanner scanner) {
+		
+		displayCharacters();
 		
 		String userInput = scanner.nextLine();
 		
 		int intSelection = Integer.parseInt(userInput);
 		return gl.getCharNameAtIndex(intSelection);
+	}
+	
+	public static void characterPromptInspection(Scanner scanner, String userInput) {
+		
+		int intSelection = Integer.parseInt(userInput);
+		
+		String charName = gl.getCharNameAtIndex(intSelection);
+		int charWeight = gl.getCharWeigtAtIndex(intSelection);
+		
+		System.out.println(charName + " is a " + gl.getCharWeightType(charWeight) + " type!");
 	}
 
 }
