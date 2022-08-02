@@ -4,13 +4,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class CoreComponentsTest {
+class ProductPCTest {
 
-	@Test
+	//@Test
+	/*
 	void setNameShouldSet() {
 		
 		// Arrange
-		CoreComponents cc = new CoreComponents();
+		ProductPC cc = new ProductPC();
 		String testName = "AMD Legacy 1";
 		
 		// Act
@@ -19,5 +20,6 @@ class CoreComponentsTest {
 		// Assert
 		assertEquals(testName, cc.getName());
 	}
+	*/
 
 }

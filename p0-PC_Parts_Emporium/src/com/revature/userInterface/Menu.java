@@ -1,42 +1,54 @@
 package com.revature.userInterface;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.revature.models.CoreComponents;
+import com.revature.businessLogic.BusinessLogic;
 import com.revature.util.Logger;
 import com.revature.util.Logger.LogLevel;
 
 public class Menu {
 	
 	private static Logger logger = new Logger();
+	private static BusinessLogic bl = new BusinessLogic();
 	
 	public static void showWelcomeText() {
 		System.out.println("======================================");
-		
-		System.out.println("Welcome to the PC Warehouse Store!");
-		
-		System.out.println("======================================");
+		System.out.println("Welcome to the PC Parts Emporium!");
+		showAsciiArt();
+		System.out.println("This app console will help with all your PC part(s) shopping needs, whether it's for building for upgrading a current system.");
+		System.out.println("======================================\n");
 	}
 	
-	public static void presentMenu() {
+	public static void showAsciiArt() {
+		System.out.println("                  .----.\r\n"
+				+ "      .---------. | == |\r\n"
+				+ "      |.-\"\"\"\"\"-.| |----|\r\n"
+				+ "      ||       || | == |\r\n"
+				+ "      ||       || |----|\r\n"
+				+ "      |'-.....-'| |::::|\r\n"
+				+ "      `\"\")---(\"\"` |___.|\r\n"
+				+ "     /:::::::::::\\\" _  \"\r\n"
+				+ "    /:::=======:::\\`\\`\\\r\n"
+				+ "    `\"\"\"\"\"\"\"\"\"\"\"\"\"`  '-'");
+	}
+	
+	/**
+	 * Display Menu, execute options
+	 */
+	public static void presentMenu() {		
 		
 		String userInput = "";
 		Scanner scanner = new Scanner(System.in);
-		
-		// Starting PC Parts List
-		ArrayList<CoreComponents> drinkList = new ArrayList<CoreComponents>();
-		drinkList.add(new CoreComponents("Intel Core i9", 349.99));
-		drinkList.add(new CoreComponents("Asus AM4 ATX Motherboard", 203.99));
-		drinkList.add(new CoreComponents("Corsair SF 600W", 99.99));
 		
 		// menu interface
 		// while the userInput is not "x" we loop, we present the menu again
 		do {
 			System.out.println("======================================");
-			System.out.println("Welcome to the PC Warehouse Store!");
-			System.out.println("[1] Display List");
-			System.out.println("[2] Create and Add an Item to the list");
+			System.out.println("Main Menu");
+			System.out.println("======================================");
+			System.out.println("[1] Customer Query");
+			System.out.println("[2] Order");
+			System.out.println("[3] Inventory");
 			System.out.println("[x] Exit Store");
 			
 			userInput = scanner.nextLine();
@@ -46,39 +58,13 @@ public class Menu {
 			
 			switch(userInput) {
 			case "1":
-				System.out.println("The Item currently listed are:");
-				System.out.println();
-				for(CoreComponents currentDrink: drinkList) {
-					//System.out.println(currentDrink.getName() + " priced at: " + currentDrink.price);
-					System.out.printf("%s priced at: $%.2f \n", currentDrink.getName(), currentDrink.getPrice());
-				}
-				System.out.println();
+				presentCustomerQueryMenu(scanner);
 				break;
 			case "2":
-				// Get User's Item Name
-				System.out.println("Enter new Item name: ");
-				String name = scanner.nextLine();
-				
-				// Get User's Item Price
-				System.out.println("Enter the Item's price: ");
-				String priceString = scanner.nextLine();
-				try {
-					double priceDouble = Double.parseDouble(priceString);//Integer.parseInt(priceString);
-					if(priceDouble > 0) {
-						CoreComponents newDrink = new CoreComponents(name, priceDouble);
-						drinkList.add(newDrink);
-						System.out.println("Item successfully added!");
-					} else {
-						System.out.println("Invalid Price, try again please.");
-					}
-				} catch (Exception e) {
-					// TODO: handle exception
-					// System.out.println("Exception message is: " + e.getMessage());
-					logger.log(LogLevel.error, "User input failed: " + priceString);
-					System.out.println("Invalid Input, Item not added");
-					//e.printStackTrace();
-				}
-
+				presentOrderMenu(scanner);
+				break;
+			case "3":
+				System.out.println("Feature Coming Soon!");
 				break;
 			case "x":
 				System.out.println("Closing Store, Goodbye!");
@@ -90,6 +76,123 @@ public class Menu {
 			}
 			
 		} while(!(userInput.equals("x")));
+		
+	}
+	
+	// Display Customer Query Menu, execute options
+	public static void presentCustomerQueryMenu(Scanner sc) {
+		
+		String userInput = "";
+		
+		do {
+			System.out.println("======================================");
+			System.out.println("Customer Query Menu");
+			System.out.println("======================================");
+			System.out.println("[1] View all customers");
+			System.out.println("[2] Add customer");
+			System.out.println("[3] Search for a customer");
+			System.out.println("[x] Exit Customer Query Menu");
+			
+			userInput = sc.nextLine();
+			
+			switch(userInput) {
+			case "1":
+				bl.printAllCustomers();
+				break;
+			case "2":
+				System.out.println("Enter new customer name: ");
+				String name = sc.nextLine();
+
+				System.out.println("Enter new customer address: ");
+				String address = sc.nextLine();
+
+				System.out.println("Enter new customer email: ");
+				String email = sc.nextLine();
+				
+				BusinessLogic.addCustomer(name, address, email);
+				break;
+			case "3":
+				System.out.println("Feature Coming Soon!");
+				break;
+			case "x":
+				System.out.println("Returning to Main Menu");
+				break;
+			default:
+				System.out.println("Wrong input. Please try again using one of the valid options.");
+				break;
+			}
+			
+		} while (!(userInput.equals("x")));
+		
+	}
+	
+	// Display Order Menu, execute options
+	public static void presentOrderMenu(Scanner sc) {
+		
+		String userInput = "";
+		
+		do {
+
+			System.out.println("======================================");
+			System.out.println("Order Menu");
+			System.out.println("======================================");
+			System.out.println("[1] Place order");
+			System.out.println("[2] View order history");
+			System.out.println("[x] Exit Order Menu");
+			
+			userInput = sc.nextLine();
+			
+			switch(userInput) {
+			case "1":
+				System.out.println("Feature Coming Soon!");
+				break;
+			case "2":
+				System.out.println("Feature Coming Soon!");
+				break;
+			case "x":
+				System.out.println("Returning to Main Menu");
+				break;
+			default:
+				System.out.println("Wrong input. Please try again using one of the valid options.");
+				break;
+			}
+			
+		} while (!(userInput.equals("x")));
+		
+	}
+	
+	// Display Inventory Menu, execute options
+	public static void presentInventoryMenu(Scanner sc) {
+		
+		String userInput = "";
+		
+		do {
+
+			System.out.println("======================================");
+			System.out.println("Inventory Menu");
+			System.out.println("======================================");
+			System.out.println("[1] View inventory");
+			System.out.println("[2] Replenish inventory");
+			System.out.println("[x] Exit Order Menu");
+			
+			userInput = sc.nextLine();
+			
+			switch(userInput) {
+			case "1":
+				System.out.println("Feature Coming Soon!");
+				break;
+			case "2":
+				System.out.println("Feature Coming Soon!");
+				break;
+			case "x":
+				System.out.println("Returning to Main Menu");
+				break;
+			default:
+				System.out.println("Wrong input. Please try again using one of the valid options.");
+				break;
+			}
+			
+		} while (!(userInput.equals("x")));
 		
 	}
 

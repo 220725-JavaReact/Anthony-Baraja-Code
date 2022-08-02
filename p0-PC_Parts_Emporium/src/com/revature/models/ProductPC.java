@@ -1,22 +1,28 @@
 package com.revature.models;
 
-public class CoreComponents {
+public class ProductPC {
 	
-	// Field Variables
+	// Field
+	private int id;
 	private String name;
 	private Double price;
 	
 	// Constructors
-	public CoreComponents(String name, double price) {
+	public ProductPC(int id, String name, double price) {
+		this.setId(id);
 		this.name = name;
 		this.price = price;
 	}
-	
-	public CoreComponents() {
-		// TODO Auto-generated constructor stub
-	}
 
 	// Getters and Setters
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -33,7 +39,6 @@ public class CoreComponents {
 	// To String for Display
 	@Override
 	public String toString() {
-		return "CoreComponents [name=" + name + ", price=" + price + "]";
+		return "CoreComponents [id="+ id + ", name=" + name + ", price=" + price + "]";
 	}
-
 }
