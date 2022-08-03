@@ -2,15 +2,16 @@ package userInterface;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import businessLogic.GameLogic;
-
-
 import models.Character;
+import util.Logger;
+import util.Logger.LogLevel;;
 
 
 public class Menu {
 	
-	//private static Logger logger = new Logger();
+	private static Logger logger = new Logger();
 	private static GameLogic gl = new GameLogic();
 	
 	public static void showWelcomeText() {
@@ -74,6 +75,8 @@ public class Menu {
 			
 			userInput = scanner.nextLine();
 			
+			logger.log(LogLevel.info, userInput);
+			
 			switch(userInput) {
 			case "1":
 				int numPlayers = gameSetup(scanner);
@@ -88,6 +91,7 @@ public class Menu {
 				break;
 			default:
 				System.out.println("Wrong input. Please try again using one of the valid options.");
+				logger.log(LogLevel.warning, userInput);
 				break;
 			}
 			

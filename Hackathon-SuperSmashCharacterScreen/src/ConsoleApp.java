@@ -16,14 +16,6 @@ public class ConsoleApp {
 		//Class gameLogicClass = GameLogic.class;
 		Class gameLogicClass = GameLogic.class;
 		Field[] allFields = gameLogicClass.getDeclaredFields();
-
-		for (Field field : allFields) {
-			System.out.println(field.getName());
-		}
-		
-		//Class gameLogicTestClass = GameLogic.class;
-		//Method[] allMethods = 
-		//for (Method method : allMethods)
 		
 		System.out.println("Unit testing starting...");
 		GameLogicTest gameLogicTest = new GameLogicTest();
@@ -36,8 +28,6 @@ public class ConsoleApp {
 		int totalFailedTests = 0; //Counts failed unit tests
 		
 		Method[] gameLogicTestMethods = gameLogicTestClass.getDeclaredMethods();
-		//Class carTestClass = CarTest.class;
-		//Method[] carTestMethods = carTestClass.getDeclaredMethods();
 		
 		for (Method method : gameLogicTestMethods) {
 			if(method.isAnnotationPresent(Test.class)) {
@@ -58,7 +48,7 @@ public class ConsoleApp {
 							System.out.println("..." + e.getTargetException().getMessage());
 							totalFailedTests++;
 						}
-					} 
+					}
 					catch(Exception e)
 					{
 						e.printStackTrace();
@@ -67,9 +57,11 @@ public class ConsoleApp {
 				else {
 					totalIgnoredTests++;
 				}
-				System.out.println(String.format("Total unit tests: %d\nTotal passed tests: %d\nTotal ignored tests: %d", totalUnitTests, totalPassedTests, totalIgnoredTests));
 			}
 		}
+		
+		// Display Unit Test Results
+		System.out.println(String.format("Total unit tests: %d\nTotal passed tests: %d\nTotal failed tests: %d\nTotal ignored tests: %d", totalUnitTests, totalPassedTests, totalFailedTests, totalIgnoredTests));
 		////////////////////////////////////////////////////////////////////////////////////////////
 		
 		Menu.showWelcomeText();

@@ -3,16 +3,14 @@ import java.util.Arrays;
 
 public class Assertion {
 	
-	public static boolean Equals(int expected, int actual)
+	public static void Equals(int expected, int actual)
     {
-        return expected == actual;
+        Evaluate(expected == actual, "Equals Int Failed");
     }
 	
-	public static boolean EqualsString(String expected, String actual)
+	public static void EqualsString(String expected, String actual)
     {
-		System.out.println();
-		System.out.println("EqualsString test: " + expected.equals(actual));
-		return expected.equals(actual);
+		Evaluate(expected.equals(actual), "Equals String Failed");
     }
 	
 	public static boolean NotEquals(int expected, int actual)
@@ -20,15 +18,22 @@ public class Assertion {
         return expected != actual;
     }
 	
-	public static boolean NonNegative(int testValue)
+	public static void NonNegative(int testValue)
     {
-        return testValue > 0;
+		Evaluate(testValue > 0, "Int Value NonNegative Failed");
     }
 	
 	// Activity: arrayEquals
-	public static boolean arrayEquals(String[] expected, String[] actual)
+	public static void arrayEquals(String[] expected, String[] actual)
     {
-        return Arrays.equals(expected, actual);
+		Evaluate(Arrays.equals(expected, actual), "Array Equals Failed");
+    }
+	
+	private static void Evaluate(boolean condition, String message)
+    {
+        if (!condition) {
+            throw new AssertionError(message);
+        }
     }
 
 }
