@@ -10,26 +10,15 @@ public class Menu {
 	
 	private static Logger logger = new Logger();
 	private static BusinessLogic bl = new BusinessLogic();
+	private static AsciiUI ascii = new AsciiUI();
+	private static OrderUI orderUI = new OrderUI();
 	
 	public static void showWelcomeText() {
 		System.out.println("======================================");
 		System.out.println("Welcome to the PC Parts Emporium!");
-		showAsciiArt();
-		System.out.println("This app console will help with all your PC part(s) shopping needs, whether it's for building for upgrading a current system.");
+		ascii.printComputerArt();
+		System.out.println("This Store Console App will help with all your PC part(s) shopping needs, whether it's for building for upgrading a current system.");
 		System.out.println("======================================\n");
-	}
-	
-	public static void showAsciiArt() {
-		System.out.println("                  .----.\r\n"
-				+ "      .---------. | == |\r\n"
-				+ "      |.-\"\"\"\"\"-.| |----|\r\n"
-				+ "      ||       || | == |\r\n"
-				+ "      ||       || |----|\r\n"
-				+ "      |'-.....-'| |::::|\r\n"
-				+ "      `\"\")---(\"\"` |___.|\r\n"
-				+ "     /:::::::::::\\\" _  \"\r\n"
-				+ "    /:::=======:::\\`\\`\\\r\n"
-				+ "    `\"\"\"\"\"\"\"\"\"\"\"\"\"`  '-'");
 	}
 	
 	/**
@@ -64,10 +53,10 @@ public class Menu {
 				presentOrderMenu(scanner);
 				break;
 			case "3":
-				System.out.println("Feature Coming Soon!");
+				presentInventoryMenu(scanner);
 				break;
 			case "x":
-				System.out.println("Closing Store, Goodbye!");
+				System.out.println("Closing Store Console App, Goodbye!");
 				scanner.close();
 				break;
 			default:
@@ -109,10 +98,16 @@ public class Menu {
 				System.out.println("Enter new customer email: ");
 				String email = sc.nextLine();
 				
-				BusinessLogic.addCustomer(name, address, email);
+				System.out.println("Enter new customer phone number, no hyphens (-): ");
+				String phone = sc.nextLine();
+				
+				BusinessLogic.addCustomer(name, address, email, phone);
 				break;
 			case "3":
-				System.out.println("Feature Coming Soon!");
+				//System.out.println("Feature Coming Soon!");
+				System.out.println("Enter customer name: ");
+				String nameInput = sc.nextLine();
+				bl.printCustomerByName(nameInput);				
 				break;
 			case "x":
 				System.out.println("Returning to Main Menu");
@@ -144,7 +139,10 @@ public class Menu {
 			
 			switch(userInput) {
 			case "1":
-				System.out.println("Feature Coming Soon!");
+				//System.out.println("Feature Coming Soon!");
+				orderUI.placeOrderStart(sc);
+				//System.out.println("Back to Order Menu, userInput: " + userInput);
+				sc.nextLine();
 				break;
 			case "2":
 				System.out.println("Feature Coming Soon!");
@@ -179,10 +177,10 @@ public class Menu {
 			
 			switch(userInput) {
 			case "1":
-				System.out.println("Feature Coming Soon!");
+				bl.printAllProducts();
 				break;
 			case "2":
-				System.out.println("Feature Coming Soon!");
+				presentStoreFrontSelections(sc);
 				break;
 			case "x":
 				System.out.println("Returning to Main Menu");
@@ -194,6 +192,83 @@ public class Menu {
 			
 		} while (!(userInput.equals("x")));
 		
+	}
+	
+	// Prompt Store Front List, for Replenish Inventory functionality  
+	public static void presentStoreFrontSelections(Scanner sc) {
+		String userInput = "";
+		int userProdSelect = 0;
+		
+		do {
+			System.out.println("======================================");
+			System.out.println("Store Front Selections");
+			System.out.println("======================================");
+			
+			bl.printStoreFrontSelections();
+			System.out.println("[x] Return to Main Menu");
+			
+			userInput = sc.nextLine(); // user made a store selection, userInput = id
+			if(userInput.equals("x")) break;
+			try {
+				userProdSelect = Integer.parseInt(userInput);
+				presentProductSelectionsPerLocation(sc, userProdSelect);
+				return;
+			} catch (NumberFormatException e) {
+				System.out.println("Not a number, please try again");
+			}
+
+		} while (!(userInput.equals("x")));
+	}
+	
+	public static void presentProductSelectionsPerLocation(Scanner sc, int store_id) {
+		String userInput = "";
+		int userProdSelect = 0;
+		
+		do {
+			System.out.println("======================================");
+			System.out.println("Product Selection Available at this Location");
+			System.out.println("======================================");
+			
+			bl.printAllProductsByStoreID(store_id);
+			System.out.println("[x] Return to Store Front Selections");
+			
+			userInput = sc.nextLine(); // user made a store selection, userInput = id
+			if(!(userInput.equals("x"))){
+				userProdSelect = Integer.parseInt(userInput);
+				
+				if(bl.productSelectionIdIsValid(userProdSelect, store_id)) {
+					presentProductQuantityPromptForUpdate(sc, store_id, userProdSelect);
+					return;
+				} else {
+					System.out.println("Not valid product selection, please choose another option");
+				}
+			}
+			
+		} while (!(userInput.equals("x")));
+	}
+	
+	public static void presentProductQuantityPromptForUpdate(Scanner sc, int store_id, int product_id) {
+		String userInput = "";
+		int userQtyAmount = 0;
+		
+		do {
+			System.out.println("======================================");
+			System.out.println("Adjust Quantity Amount for " + bl.getProductNameFromId(product_id));
+			System.out.println("======================================");
+			
+			System.out.println("Currently Quantity = " + bl.getLineItemQtyAmountFromProdId(product_id));
+			System.out.println("Enter the adjusted value:");
+			
+			userInput = sc.nextLine();
+			try {
+				userQtyAmount = Integer.parseInt(userInput);
+				bl.updateLineItemQuantity(userQtyAmount, product_id);
+				return;
+			} catch (NumberFormatException e) {
+				System.out.println("Not a number, please try again");
+			}
+			
+		} while (!(userInput.equals("x")));
 	}
 
 }

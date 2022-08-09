@@ -9,15 +9,15 @@ public class Customer {
     private String name;
     private String address;
     private String email;
-    private List<Order> ordersList;
+    private String phone;
     
     // Constructor
-    public Customer(int id, String name, String address, String email, List<Order> ordersList) {
+    public Customer(int id, String name, String address, String email, String phone) {
     	this.id = id;
         this.name = name;
         this.address = address;
         this.email = email;
-        this.ordersList = ordersList;
+        this.phone = phone;
     }
 
     // Getters and Setters
@@ -53,18 +53,18 @@ public class Customer {
         this.email = email;
     }
 
-    public List<Order> getOrdersList() {
-        return ordersList;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setOrdersList(List<Order> ordersList) {
-        this.ordersList = ordersList;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     // To String Method
     @Override
     public String toString() {
-        return "Customer [id=" + id + ", name=" + name + ", address=" + address + ", email=" + email + ", ordersList="
-                + ordersList + "]";
+        return "Customer [id=" + id + ", name=" + name + ", address=" + address + ", email=" + email + ", phone="
+                + phone + "]";
     }
 }
