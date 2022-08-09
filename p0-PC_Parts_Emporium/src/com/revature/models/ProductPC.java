@@ -6,12 +6,19 @@ public class ProductPC {
 	private int id;
 	private String name;
 	private Double price;
+	private String description;
+	private String category;
+	private int storeId;
 	
 	// Constructors
-	public ProductPC(int id, String name, double price) {
-		this.setId(id);
+	public ProductPC(int id, String name, Double price, String description, String category, int storeId) {
+		super();
+		this.id = id;
 		this.name = name;
 		this.price = price;
+		this.description = description;
+		this.setCategory(category);
+		this.storeId = storeId;
 	}
 
 	// Getters and Setters
@@ -35,10 +42,35 @@ public class ProductPC {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	
-	// To String for Display
+	public String getDescription() {
+		return this.description;
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public int getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(int storeId) {
+		this.storeId = storeId;
+	}
+
 	@Override
 	public String toString() {
-		return "CoreComponents [id="+ id + ", name=" + name + ", price=" + price + "]";
+		return "ProductPC [id=" + id + ", name=" + name + ", price=" + price + ", description=" + description
+				+ ", category=" + category + ", storeId=" + storeId + "]";
 	}
+	
 }

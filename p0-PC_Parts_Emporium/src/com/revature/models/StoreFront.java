@@ -1,23 +1,17 @@
 package com.revature.models;
 
-import java.util.List;
-
 public class StoreFront {
 
     // Fields
     private int id;
     private String name;
     private String address;
-    private List<ProductPC> productsList;
-    private List<Order> ordersList;
     
     // Constructor
-    public StoreFront(int id, String name, String address, List<ProductPC> productsList, List<Order> ordersList) {
+    public StoreFront(int id, String name, String address) {
         this.id = id;
         this.name = name;
         this.address = address;
-        this.productsList = productsList;
-        this.ordersList = ordersList;
     }
 
     public int getId() {
@@ -45,19 +39,9 @@ public class StoreFront {
         this.address = address;
     }
 
-    public List<ProductPC> getProductsList() {
-        return productsList;
-    }
-
-    public void setProductsList(List<ProductPC> productsList) {
-        this.productsList = productsList;
-    }
-
-    public List<Order> getOrdersList() {
-        return ordersList;
-    }
-
-    public void setOrdersList(List<Order> ordersList) {
-        this.ordersList = ordersList;
-    }
+	// To String
+    @Override
+	public String toString() {
+		return "StoreFront [id=" + id + ", name=" + name + ", address=" + address + "]";
+	}
 }

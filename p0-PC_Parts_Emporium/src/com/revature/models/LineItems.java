@@ -4,13 +4,13 @@ public class LineItems {
     
     // Fields
     private int id;
-    private ProductPC product;
+    private int product_id;
     private int quantity;
     
     // Constructor
-    public LineItems(int id, ProductPC product, int quantity) {
+    public LineItems(int id, int product_id, int quantity) {
     	this.id = id;
-        this.product = product;
+        this.product_id = product_id;
         this.quantity = quantity;
     }
 
@@ -23,12 +23,12 @@ public class LineItems {
     }
 
     // Getters and Setters
-    public ProductPC getProduct() {
-        return product;
+    public int getProductId() {
+        return product_id;
     }
 
-    public void setProduct(ProductPC product) {
-        this.product = product;
+    public void setProductId(int product_id) {
+        this.product_id = product_id;
     }
 
     public int getQuantity() {
@@ -42,6 +42,6 @@ public class LineItems {
 	// To String Method
     @Override
 	public String toString() {
-		return "LineItems [id=" + id + ", product=" + product + ", quantity=" + quantity + "]";
+		return "LineItems [id=" + id + ", product_id=" + product_id + ", quantity=" + quantity + "]";
 	}
 }
