@@ -13,6 +13,8 @@ local.properties
 *.classpath
 *.project
 *.log
+*.class
+C:\Users\JediTony_GamePC\Documents\RevatureCodes\Cohort-Java_React\AnthonyRepo\Anthony-Baraja-Code\p0-PC_Parts_Emporium\src\com\revature\util\StoreSecretClass.java
 
 # External tool builders
 .externalToolBuilders/
