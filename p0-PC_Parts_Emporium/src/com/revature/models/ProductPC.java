@@ -69,8 +69,12 @@ public class ProductPC {
 
 	@Override
 	public String toString() {
+		String display = String.format("ProductPC: id = %3d\n   name = %20s\n   price = %20f\n   description = %50s\n   category = %20s\n   storeId = %3d", id, name, price, description, category, storeId);
+		return display;
+		/*
 		return "ProductPC [id=" + id + ", name=" + name + ", price=" + price + ", description=" + description
 				+ ", category=" + category + ", storeId=" + storeId + "]";
+				*/
 	}
 	
 }

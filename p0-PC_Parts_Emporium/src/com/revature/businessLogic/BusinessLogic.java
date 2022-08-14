@@ -8,6 +8,7 @@ import com.revature.models.Customer;
 import com.revature.models.LineItems;
 import com.revature.models.ProductPC;
 import com.revature.models.StoreFront;
+import com.revature.util.MyHashMap;
 import com.revature.dataAccessLogic.CustomerDBDAOLogic;
 
 public class BusinessLogic {
@@ -63,10 +64,35 @@ public class BusinessLogic {
 	}
 	
 	public void printAllProductsByStoreID(int store_id) {
+		
+		MyHashMap<Integer, ProductPC> storeIdMap = new MyHashMap<Integer, ProductPC>();
+		int keyIndex = 1;
+		
 		for(ProductPC product: productDao.getAllByStoreId(store_id)) {
-			//System.out.println(product);
-			System.out.println("[" + product.getId() + "] " + product.getName());
+			//System.out.println("[" + product.getId() + "] " + product.getName());
+			storeIdMap.put(keyIndex, product);
 		}
+	}
+	
+	/**
+	 * Returns MyHashMap of ProductPCs by given store's ID.
+	 * @param store_id
+	 * @return
+	 */
+	public MyHashMap<Integer, ProductPC> mapProductsByStoreID(int store_id){
+		MyHashMap<Integer, ProductPC> storeMap = new MyHashMap<Integer, ProductPC>();
+		int keyIndex = 1;
+		
+		for(ProductPC product: productDao.getAllByStoreId(store_id)) {
+			storeMap.put(keyIndex, product);
+			keyIndex++;
+		}
+		
+		return storeMap;
+	}
+	
+	public void printAllProductsFromMap(MyHashMap<Integer, ProductPC> storeMap) {
+		storeMap.display();
 	}
 	
 	public void printStoreFrontSelections() {

@@ -3,7 +3,9 @@ package com.revature.userInterface;
 import java.util.Scanner;
 
 import com.revature.businessLogic.BusinessLogic;
+import com.revature.models.ProductPC;
 import com.revature.util.Logger;
+import com.revature.util.MyHashMap;
 import com.revature.util.Logger.LogLevel;
 
 public class Menu {
@@ -229,7 +231,11 @@ public class Menu {
 			System.out.println("Product Selection Available at this Location");
 			System.out.println("======================================");
 			
-			bl.printAllProductsByStoreID(store_id);
+			//bl.printAllProductsByStoreID(store_id);
+			
+			MyHashMap<Integer, ProductPC> storeMap = bl.mapProductsByStoreID(store_id);
+			bl.printAllProductsFromMap(storeMap);
+			
 			System.out.println("[x] Return to Store Front Selections");
 			
 			userInput = sc.nextLine(); // user made a store selection, userInput = id
