@@ -4,17 +4,78 @@
 
 create table products (
 	id serial primary key,
+	store_id int not null,
 	name varchar(50) not null,
 	price float NOT null,
 	description varchar(200) NOT null,
 	category varchar(50) NOT null,
-	store_id int not null,
 	FOREIGN KEY (store_id) references storeFront(id)
 );
 
 select * from products;
 
 drop table products CASCADE;
+
+insert into products(id, store_id, name, price, description, category)
+values (DEFAULT, 1, 'Intel Core i3-10105 3.7 GHz 4-Core', 89.99, 'The Intel i3 Processors provide the value and power for everyday gaming, multitasking, and productivity', 'CPU'),
+(DEFAULT, 2, 'Intel Core i3-10105 3.7 GHz 4-Core', 89.99, 'The Intel i3 Processors provide the value and power for everyday gaming, multitasking, and productivity', 'CPU'),
+(DEFAULT, 3, 'Intel Core i3-10105 3.7 GHz 4-Core', 89.99, 'The Intel i3 Processors provide the value and power for everyday gaming, multitasking, and productivity', 'CPU'),
+(DEFAULT, 4, 'Intel Core i3-10105 3.7 GHz 4-Core', 89.99, 'The Intel i3 Processors provide the value and power for everyday gaming, multitasking, and productivity', 'CPU'),
+(DEFAULT, 1, 'Intel Core i5-11400 2.6GHz 6-Core', 149.99, 'Create, edit, share 4K content, and enjoy immersive experiences with the Intel i5 processors', 'CPU'),
+(DEFAULT, 2, 'Intel Core i5-11400 2.6GHz 6-Core', 149.99, 'Create, edit, share 4K content, and enjoy immersive experiences with the Intel i5 processors', 'CPU'),
+(DEFAULT, 4, 'Intel Core i5-11400 2.6GHz 6-Core', 149.99, 'Create, edit, share 4K content, and enjoy immersive experiences with the Intel i5 processors', 'CPU'),
+(DEFAULT, 2, 'Intel Core i7-11700K 3.6GHz 8-Core', 269.99, 'With the Intel i7, you will be able to game without compromise, with 8 cores, it divides, so you can conquer', 'CPU'),
+(DEFAULT, 3, 'Intel Core i7-11700K 3.6GHz 8-Core', 269.99, 'With the Intel i7, you will be able to game without compromise, with 8 cores, it divides, so you can conquer', 'CPU'),
+(DEFAULT, 2, 'Intel Core i9-11900K 3.5GHz 8-Core', 329.99, 'The Intel i9 feature an innovative architecture designed for AI, immersive display and graphics, plus enhanced tuning and expandability to put gamers and PC enthusiasts fully in control of real-world experiences', 'CPU'),
+(DEFAULT, 2, 'Intel Core i9-12900K 3.2GHz 16-Core', 529.99, 'The Intel i9 feature an innovative architecture designed for AI, immersive display and graphics, plus enhanced tuning and expandability to put gamers and PC enthusiasts fully in control of real-world experiences', 'CPU'),
+(DEFAULT, 1, 'AMD Ryzen 5 5600 3.5GHz 6-Core', 149.99, 'The AMD 5 offers a mid-range processing performance ideal for casual gaming and office work', 'CPU'),
+(DEFAULT, 2, 'AMD Ryzen 5 5600 3.5GHz 6-Core', 149.99, 'The AMD 5 offers a mid-range processing performance ideal for casual gaming and office work', 'CPU'),
+(DEFAULT, 3, 'AMD Ryzen 5 5600 3.5GHz 6-Core', 149.99, 'The AMD 5 offers a mid-range processing performance ideal for casual gaming and office work', 'CPU'),
+(DEFAULT, 4, 'AMD Ryzen 5 5600 3.5GHz 6-Core', 149.99, 'The AMD 5 offers a mid-range processing performance ideal for casual gaming and office work', 'CPU'),
+(DEFAULT, 2, 'AMD Ryzen 7 5700X 3.4GHz 8-Core', 239.99, 'The AMD 7 Processors is optimized for high-FPS gaming rigs', 'CPU'),
+(DEFAULT, 3, 'AMD Ryzen 7 5700X 3.4GHz 8-Core', 239.99, 'The AMD 7 Processors is optimized for high-FPS gaming rigs', 'CPU'),
+(DEFAULT, 4, 'AMD Ryzen 7 5700X 3.4GHz 8-Core', 239.99, 'The AMD 7 Processors is optimized for high-FPS gaming rigs', 'CPU'),
+(DEFAULT, 2, 'AMD Ryzen 9 5900X 3.7GHz 12-Core', 399.99, 'The AMD 9 Processors is the world\'s most advanced processor with 12 cores for the world\'s elite gamers', 'CPU'),
+(DEFAULT, 2, 'ASUS Z690 Intel 12th Gen ATX Gaming Motherboard', 268.99, 'The ASUS Z690 motherboard takes all the essential elements of the latest Intel processors and combines them with game-ready features and proven durability', 'Motherboard'),
+(DEFAULT, 3, 'ASUS Z690 Intel 12th Gen ATX Gaming Motherboard', 268.99, 'The ASUS Z690 motherboard takes all the essential elements of the latest Intel processors and combines them with game-ready features and proven durability', 'Motherboard'),
+(DEFAULT, 4, 'ASUS Z690 Intel 12th Gen ATX Gaming Motherboard', 268.99, 'The ASUS Z690 motherboard takes all the essential elements of the latest Intel processors and combines them with game-ready features and proven durability', 'Motherboard'),
+(DEFAULT, 1, 'MSI PRO Z690-A ATX Intel Motherboard', 194.99, 'The MSI PRO z690 provide stable functionality and high-quality assembly, not only optimized professional workflows but also less troubleshooting and longevity', 'Motherboard'),
+(DEFAULT, 2, 'MSI PRO Z690-A ATX Intel Motherboard', 194.99, 'The MSI PRO z690 provide stable functionality and high-quality assembly, not only optimized professional workflows but also less troubleshooting and longevity', 'Motherboard'),
+(DEFAULT, 3, 'MSI PRO Z690-A ATX Intel Motherboard', 194.99, 'The MSI PRO z690 provide stable functionality and high-quality assembly, not only optimized professional workflows but also less troubleshooting and longevity', 'Motherboard'),
+(DEFAULT, 1, 'GIGABYTE Z590 Intel ATX Motherboard', 194.99, 'The GIGABYTE z590 is well equipped to unleash the full performance of Intel Core processors, with robust power design, Ultra Durable components, and enlarged heatsinks providing more surface area for heat dissipation', 'Motherboard'),
+(DEFAULT, 2, 'GIGABYTE Z590 Intel ATX Motherboard', 194.99, 'The GIGABYTE z590 is well equipped to unleash the full performance of Intel Core processors, with robust power design, Ultra Durable components, and enlarged heatsinks providing more surface area for heat dissipation', 'Motherboard'),
+(DEFAULT, 3, 'GIGABYTE Z590 Intel ATX Motherboard', 194.99, 'The GIGABYTE z590 is well equipped to unleash the full performance of Intel Core processors, with robust power design, Ultra Durable components, and enlarged heatsinks providing more surface area for heat dissipation', 'Motherboard'),
+(DEFAULT, 4, 'GIGABYTE Z590 Intel ATX Motherboard', 194.99, 'The GIGABYTE z590 is well equipped to unleash the full performance of Intel Core processors, with robust power design, Ultra Durable components, and enlarged heatsinks providing more surface area for heat dissipation', 'Motherboard'),
+(DEFAULT, 1, 'ASUS ROG B550-F ATX AMD Motherboard', 189.99, 'The ASUS ROG B550-F provide robust power delivery and effective cooling, this motherboard gives you a head start on your dream build', 'Motherboard'),
+(DEFAULT, 3, 'ASUS ROG B550-F ATX AMD Motherboard', 189.99, 'The ASUS ROG B550-F provide robust power delivery and effective cooling, this motherboard gives you a head start on your dream build', 'Motherboard'),
+(DEFAULT, 2, 'MSI B450 TOMAHAWK AMD Motherboard', 104.99, 'The MSI B450 TOMAHAWK have been upgraded to support multiple Ryzen processor generations including Ryzen series processors', 'Motherboard'),
+(DEFAULT, 4, 'MSI B450 TOMAHAWK AMD Motherboard', 104.99, 'The MSI B450 TOMAHAWK have been upgraded to support multiple Ryzen processor generations including Ryzen series processors', 'Motherboard'),
+(DEFAULT, 1, 'ASRock B550 ATX AMD Motherboard', 94.99, 'The ASRock B550 is designed by gamers, it contains gaming oriented features and excellent gaming capabilities', 'Motherboard'),
+(DEFAULT, 2, 'ASRock B550 ATX AMD Motherboard', 94.99, 'The ASRock B550 is designed by gamers, it contains gaming oriented features and excellent gaming capabilities', 'Motherboard'),
+(DEFAULT, 3, 'ASRock B550 ATX AMD Motherboard', 94.99, 'The ASRock B550 is designed by gamers, it contains gaming oriented features and excellent gaming capabilities', 'Motherboard'),
+(DEFAULT, 4, 'ASRock B550 ATX AMD Motherboard', 94.99, 'The ASRock B550 is designed by gamers, it contains gaming oriented features and excellent gaming capabilities', 'Motherboard'),
+(DEFAULT, 1, 'G.SKILL Ripjaws 32GB RAM', 88.99, 'The G.SKILL Ripjaws is designed for sleek aesthetics and performance, it is the ideal choice for building a new performance system', 'RAM'),
+(DEFAULT, 3, 'G.SKILL Ripjaws 32GB RAM', 88.99, 'The G.SKILL Ripjaws is designed for sleek aesthetics and performance, it is the ideal choice for building a new performance system', 'RAM'),
+(DEFAULT, 4, 'G.SKILL Ripjaws 32GB RAM', 88.99, 'The G.SKILL Ripjaws is designed for sleek aesthetics and performance, it is the ideal choice for building a new performance system', 'RAM'),
+(DEFAULT, 2, 'CORSAIR Vengeance 16GB RAM', 56.99, 'The CORSAIR Vengeance is designed for high-performance overclocking', 'RAM'),
+(DEFAULT, 3, 'CORSAIR Vengeance 16GB RAM', 56.99, 'The CORSAIR Vengeance is designed for high-performance overclocking', 'RAM'),
+(DEFAULT, 4, 'CORSAIR Vengeance 16GB RAM', 56.99, 'The CORSAIR Vengeance is designed for high-performance overclocking', 'RAM'),
+(DEFAULT, 1, 'Kingston Fury Beast 16GB RAM', 66.99, 'The Kingston Fury Beast delivers a boost of performance and style with high speeds, aggressive styling and RGB lighting that runs the length of the module for smooth and stunning effects', 'RAM'),
+(DEFAULT, 3, 'Kingston Fury Beast 16GB RAM', 66.99, 'The Kingston Fury Beast delivers a boost of performance and style with high speeds, aggressive styling and RGB lighting that runs the length of the module for smooth and stunning effects', 'RAM'),
+(DEFAULT, 4, 'Kingston Fury Beast 16GB RAM', 66.99, 'The Kingston Fury Beast delivers a boost of performance and style with high speeds, aggressive styling and RGB lighting that runs the length of the module for smooth and stunning effects', 'RAM'),
+(DEFAULT, 1, 'MSI Mech Radeon RX 6500 Video Card', 182.99, 'The MSI Mech Radeon is built on the revolutionary AMD architecture, delivers impressive 1080p performance in both AAA and esports titles', 'Graphics Card'),
+(DEFAULT, 2, 'MSI Mech Radeon RX 6500 Video Card', 182.99, 'The MSI Mech Radeon is built on the revolutionary AMD architecture, delivers impressive 1080p performance in both AAA and esports titles', 'Graphics Card'),
+(DEFAULT, 3, 'MSI Mech Radeon RX 6500 Video Card', 182.99, 'The MSI Mech Radeon is built on the revolutionary AMD architecture, delivers impressive 1080p performance in both AAA and esports titles', 'Graphics Card'),
+(DEFAULT, 2, 'ASUS ROG Strix 3050 Video Card', 419.99, 'The ASUS ROG Strix has been designed to push performance boundaries', 'Graphics Card'),
+(DEFAULT, 3, 'ASUS ROG Strix 3050 Video Card', 419.99, 'The ASUS ROG Strix has been designed to push performance boundaries', 'Graphics Card'),
+(DEFAULT, 4, 'ASUS ROG Strix 3050 Video Card', 419.99, 'The ASUS ROG Strix has been designed to push performance boundaries', 'Graphics Card'),
+(DEFAULT, 1, 'EVGA GeForce RTX 3070 Video Card', 599.99, 'The EVGA GeForce RTX are colossally powerful in every way, giving you a whole new tier of performance', 'Graphics Card'),
+(DEFAULT, 2, 'EVGA GeForce RTX 3070 Video Card', 599.99, 'The EVGA GeForce RTX are colossally powerful in every way, giving you a whole new tier of performance', 'Graphics Card'),
+(DEFAULT, 3, 'EVGA GeForce RTX 3070 Video Card', 599.99, 'The EVGA GeForce RTX are colossally powerful in every way, giving you a whole new tier of performance', 'Graphics Card'),
+(DEFAULT, 4, 'EVGA GeForce RTX 3070 Video Card', 599.99, 'The EVGA GeForce RTX are colossally powerful in every way, giving you a whole new tier of performance', 'Graphics Card'),
+
+
+
 
 insert into products(id, name, price, description, category, store_id)
 values (DEFAULT, 'Intel Core i7-9000K', 299.99, '9th Generation Intel Core i7 Processors', 'Processors', 1),
