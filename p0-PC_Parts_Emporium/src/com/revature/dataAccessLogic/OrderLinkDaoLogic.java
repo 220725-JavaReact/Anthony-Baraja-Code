@@ -8,22 +8,21 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.revature.models.LineItems;
 import com.revature.models.Order;
-import com.revature.models.StoreFront;
+import com.revature.models.OrderLink;
 import com.revature.util.ConnectionFactory;
 
-public class OrdersDaoLogic implements Dao<Order> {
+public class OrderLinkDaoLogic implements Dao<OrderLink> {
 
 	@Override
-	public Order get(int id) {
+	public OrderLink get(int id) {
 		try(Connection connect = ConnectionFactory.getInstance().getConnection()){
-			String query = "select * from orders where id = ?";
+			String query = "select * from orderlink where id = ?";
 			PreparedStatement pstmt = connect.prepareStatement(query);
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
-				return new Order(rs.getInt("id"), rs.getInt("lineItem_id"), rs.getInt("store_id"), rs.getInt("customer_id"), rs.getInt("order_link"), rs.getDouble("totalPrice"));
+				return new OrderLink(rs.getInt("id"), rs.getDouble("subTotal"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -34,15 +33,15 @@ public class OrdersDaoLogic implements Dao<Order> {
 	}
 
 	@Override
-	public List<Order> getAll() {
-		List<Order> orderList = new ArrayList<Order>();
+	public List<OrderLink> getAll() {
+		List<OrderLink> orderLinkList = new ArrayList<OrderLink>();
 		
 		try(Connection connect = ConnectionFactory.getInstance().getConnection()) {
-			String query = "select * from orders";
+			String query = "select * from orderlink";
 			Statement stmt = connect.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while(rs.next()) {
-				orderList.add(new Order(rs.getInt("id"), rs.getInt("lineItem_id"), rs.getInt("store_id"), rs.getInt("customer_id"), rs.getInt("order_link"), rs.getDouble("totalPrice")));
+				orderLinkList.add(new OrderLink(rs.getInt("id"), rs.getDouble("subTotal")));
 			}
 			
 		} catch (Exception e) {
@@ -50,54 +49,46 @@ public class OrdersDaoLogic implements Dao<Order> {
 			e.printStackTrace();
 		}
 		
-		return orderList;
+		return orderLinkList;
 	}
 
 	@Override
-	public void save(Order t) {
+	public void save(OrderLink t) {
 		try(Connection connect = ConnectionFactory.getInstance().getConnection()) {
-			String query = "Insert into orders (id, lineItem_id, store_id, customer_id, order_link, totalPrice) values (DEFAULT, ?, ?, ?, ?, ?)";
+			String query = "Insert into orderlink (id, subTotal) values (DEFAULT, ?)";
 			PreparedStatement pstmt = connect.prepareStatement(query);
-			pstmt.setInt(1, t.getLineItem_id());
-			pstmt.setInt(2, t.getStore_id());
-			pstmt.setInt(3, t.getCustomer_id());
-			pstmt.setInt(4, t.getOrder_link());
-			pstmt.setDouble(5, t.getTotalPrice());
+			pstmt.setDouble(1, t.getSubTotal());
 			pstmt.execute();
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		
 	}
 
 	@Override
-	public void update(Order t) {
+	public void update(OrderLink t) {
 		try(Connection connect = ConnectionFactory.getInstance().getConnection()){
-			String query = "update orders set lineItem_id = ?, store_id = ?, customer_id = ?, order_link = ?, totalPrice = ? where id = ?";
+			String query = "update orderlink set subTotal = ? where id = ?";
 			PreparedStatement pstmt = connect.prepareStatement(query);
-			pstmt.setInt(1, t.getLineItem_id());
-			pstmt.setInt(2, t.getStore_id());
-			pstmt.setInt(3, t.getCustomer_id());
-			pstmt.setInt(4, t.getOrder_link());
-			pstmt.setDouble(5, t.getTotalPrice());
-			pstmt.setInt(6, t.getId());
+			pstmt.setDouble(1, t.getSubTotal());
+			pstmt.setInt(2, t.getId());
 			pstmt.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 
 	@Override
-	public void delete(Order t) {
+	public void delete(OrderLink t) {
 		try(Connection connect = ConnectionFactory.getInstance().getConnection()){
-			String query = "DELETE FROM orders WHERE id = ?";
+			String query = "DELETE FROM orderlink WHERE id = ?";
 			PreparedStatement pstmt = connect.prepareStatement(query);
 			pstmt.setInt(1, t.getId());
 			pstmt.execute();
-			System.out.println("Order id: " + t.getId() + ", successfully deleted from the database.");
+			System.out.println("Orderlink id: " + t.getId() + ", successfully deleted from the database.");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

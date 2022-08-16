@@ -23,7 +23,7 @@ public class ProductPCDBDAO implements Dao<ProductPC>, ProductInterface<ProductP
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
-				return new ProductPC(rs.getInt("id"), rs.getString("name"), rs.getDouble("price"), rs.getString("description"), rs.getString("category"), rs.getInt("store_id"));
+				return new ProductPC(rs.getInt("id"), rs.getInt("store_id"), rs.getString("name"), rs.getDouble("price"), rs.getString("description"), rs.getString("category"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -42,7 +42,7 @@ public class ProductPCDBDAO implements Dao<ProductPC>, ProductInterface<ProductP
 			pstmt.setInt(1, store_id);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
-				productList.add(new ProductPC(rs.getInt("id"), rs.getString("name"), rs.getDouble("price"), rs.getString("description"), rs.getString("category"), rs.getInt("store_id")));
+				productList.add(new ProductPC(rs.getInt("id"), rs.getInt("store_id"), rs.getString("name"), rs.getDouble("price"), rs.getString("description"), rs.getString("category")));
 			}
 			
 		} catch (Exception e) {
@@ -82,7 +82,7 @@ public class ProductPCDBDAO implements Dao<ProductPC>, ProductInterface<ProductP
 			Statement stmt = connect.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while(rs.next()) {
-				productList.add(new ProductPC(rs.getInt("id"), rs.getString("name"), rs.getDouble("price"), rs.getString("description"), rs.getString("category"), rs.getInt("store_id")));
+				productList.add(new ProductPC(rs.getInt("id"), rs.getInt("store_id"), rs.getString("name"), rs.getDouble("price"), rs.getString("description"), rs.getString("category")));
 			}
 			
 		} catch (Exception e) {
@@ -97,13 +97,13 @@ public class ProductPCDBDAO implements Dao<ProductPC>, ProductInterface<ProductP
 	public void save(ProductPC t) {
 		
 		try(Connection connect = ConnectionFactory.getInstance().getConnection()) {
-			String query = "Insert into products (id, name, price, description, category, store_id) values (DEFAULT,?,?,?,?,?)";
+			String query = "Insert into products (id, store_id, name, price, description, category) values (DEFAULT,?,?,?,?,?)";
 			PreparedStatement pstmt = connect.prepareStatement(query);
 			pstmt.setString(1, t.getName());
-			pstmt.setDouble(2, t.getPrice());
-			pstmt.setString(3, t.getDescription());
-			pstmt.setString(4, t.getCategory());
-			pstmt.setInt(5, t.getStoreId());
+			pstmt.setInt(2, t.getStoreId());
+			pstmt.setDouble(3, t.getPrice());
+			pstmt.setString(4, t.getDescription());
+			pstmt.setString(5, t.getCategory());
 			pstmt.execute();
 			
 		} catch (Exception e) {

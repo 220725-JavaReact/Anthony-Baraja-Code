@@ -4,20 +4,20 @@ public class ProductPC {
 	
 	// Field
 	private int id;
+	private int storeId;
 	private String name;
 	private Double price;
 	private String description;
 	private String category;
-	private int storeId;
 	
 	// Constructors
-	public ProductPC(int id, String name, Double price, String description, String category, int storeId) {
+	public ProductPC(int id, int storeId, String name, Double price, String description, String category) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.price = price;
 		this.description = description;
-		this.setCategory(category);
+		this.category = category;
 		this.storeId = storeId;
 	}
 
@@ -69,7 +69,7 @@ public class ProductPC {
 
 	@Override
 	public String toString() {
-		String display = String.format("ProductPC: id = %3d\n   name = %20s\n   price = %20f\n   description = %50s\n   category = %20s\n   storeId = %3d", id, name, price, description, category, storeId);
+		String display = String.format("ProductPC: id = %3d\n   storeId = %3d\n   name = %20s\n   price = %20f\n   description = %50s\n   category = %20s", id, storeId, name, price, description, category);
 		return display;
 		/*
 		return "ProductPC [id=" + id + ", name=" + name + ", price=" + price + ", description=" + description

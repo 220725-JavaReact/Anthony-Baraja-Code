@@ -1,8 +1,15 @@
 package com.revature.userInterface;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.revature.businessLogic.BusinessLogic;
+import com.revature.models.LineItems;
+import com.revature.models.Order;
+import com.revature.models.OrderLink;
+import com.revature.models.ProductPC;
+import com.revature.util.MyHashMap;
 
 public class OrderUI {
 	
@@ -26,29 +33,130 @@ public class OrderUI {
 		int storeIdInt = Integer.parseInt(storeId);
 		
 		System.out.println();
-
+		///////////////////////////////////////////////////////////////////////////
+		OrderLink currentOrderLink = new OrderLink(1, 0.0);
+		List<Order> currentOrdersList = new ArrayList<Order>();
+		ArrayList<Integer> orderQtyList = new ArrayList<Integer>();
+		int index = 0;
+		
+		// Load the first Order # first
+		currentOrdersList.add(new Order(index, 0, storeIdInt, customerIdInt, currentOrderLink.getId(), 0.0));
+		
+		// Actual Order(s) loop begin, adding multiple Orders
+		placeOrderLoopProductPrompt(sc, currentOrdersList, index, orderQtyList);
+		
+		///////////////////////////////////////////////////////////////////////////		
+	}
+	
+	public void placeOrderLoopProductPrompt(Scanner sc, List<Order> currentOrdersList, int index, ArrayList<Integer> orderQtyList) {
+		Order currentOrder = currentOrdersList.get(index);
+		
 		System.out.println("======================================");
 		System.out.println("Select Product: ");
-		bl.printAllProductsByStoreID(storeIdInt);
-		String productId = sc.nextLine();
-		int productIdInt = Integer.parseInt(productId);
+		MyHashMap<Integer, ProductPC> storeMap = bl.mapProductsByStoreID(currentOrder.getStore_id());
+		bl.printAllProductsFromMap(storeMap);
 		
-		System.out.println();
+		int userProductId = sc.nextInt();
+		int productId = storeMap.get(userProductId).getId();
+		bl.printProductDetails(productId);
 		
-		System.out.println("======================================");
-		System.out.println("Enter Quantity Amount of Product: ");
+		if(bl.checkLineItemQtyAmountbyProdId(productId)) {
+			currentOrdersList.get(index).setLineItem_id(bl.getLineItemIDFromProdId(productId));
+			placeOrderLoopQuantityPrompt(sc, currentOrdersList, index, orderQtyList);
+		}else {
+			System.out.println("That Product is currently out of stock, please choose a valid product...");
+			placeOrderLoopProductPrompt(sc, currentOrdersList, index, orderQtyList);
+		}
+	}
+	
+	public void placeOrderLoopQuantityPrompt(Scanner sc, List<Order> currentOrdersList, int index, ArrayList<Integer> orderQtyList) {
+		
+		System.out.println("\n======================================");
+		System.out.println("Enter Quantity Amount: ");
+		
 		int userQuantity = sc.nextInt();
 		
-		System.out.println();
+		// check if user qty is not over the stock limit of that line item
+		if(bl.checkUserQtyNotOverLineItemQtyLimit(currentOrdersList.get(index).getLineItem_id(), userQuantity)) {
+			List<Order> updatedOrdersList = bl.setTotalPriceToCurrentOrdersList(currentOrdersList, index, userQuantity);
+			orderQtyList.add(userQuantity);
+			bl.printOrderDetails(updatedOrdersList, orderQtyList);
+			currentOrdersList = updatedOrdersList;
+			
+			String userInput = "";
+			sc.nextLine();
+			
+			do {
+				System.out.println("======================================");
+				System.out.println("Please select the following options:");
+				System.out.println("======================================");
+				System.out.println("[1] Keep Shopping");
+				System.out.println("[2] Finalize Order");
+				System.out.println("[x] Cancel and Exit Order");
+				
+				userInput = sc.nextLine();
+				
+				switch(userInput) {
+				case "1":  // Keep Shopping
+					index++;
+					Order newOrder = new Order(index, 0, currentOrdersList.get(0).getStore_id(), currentOrdersList.get(0).getCustomer_id(), currentOrdersList.get(0).getOrder_link(), 0.0);
+					currentOrdersList.add(newOrder);
+					placeOrderLoopProductPrompt(sc, currentOrdersList, index, orderQtyList);
+					userInput = "x";
+					break;
+				case "2":  // Finalize Order
+					bl.finalizeOrder(currentOrdersList, orderQtyList);
+					userInput = "x";
+					break;
+				case "x":  // Cancel and Exit Order
+					System.out.println("Canceling Order, Going back to Order Menu");
+					break;
+				default:
+					System.out.println("Wrong input. Please try again using one of the valid options.");
+					break;
+				}
+			} while (!(userInput.equals("x")));
+			
+		}else {
+			System.out.println("That Quantity amount is over the stock available for that product, please enter a valid amount...");
+			placeOrderLoopQuantityPrompt(sc, currentOrdersList, index, orderQtyList);
+		}
+	}
+	
+	public void orderHistoryMenu(Scanner sc) {
+		String userInput = "";
 		
-		// Display Results
-		System.out.println("======================================");
-		System.out.println("PLACE HOLDER, FEATURE COMING SOON I SWEAR!!!");
-		System.out.println("======================================");
-		System.out.println("customerIdInt: " + customerIdInt + "\nstoreIdInt: " + storeIdInt + "\nproductIdInt: " + productIdInt + "\nuserQuantity: " + userQuantity);
-		
-		
-		
+		do {
+
+			System.out.println("======================================");
+			System.out.println("Order History Menu");
+			System.out.println("======================================");
+			System.out.println("[1] View All Past Orders");
+			System.out.println("[2] View By Customer");
+			System.out.println("[3] View By Store Front");
+			System.out.println("[x] Exit Order Menu");
+			
+			userInput = sc.nextLine();
+			
+			switch(userInput) {
+			case "1":
+				System.out.println("Feature Coming Soon!");
+				break;
+			case "2":
+				System.out.println("Feature Coming Soon!");
+				break;
+			case "3":
+				System.out.println("Feature Coming Soon!");
+				break;
+			case "x":
+				System.out.println("Returning to Main Menu");
+				break;
+			default:
+				System.out.println("Wrong input. Please try again using one of the valid options.");
+				break;
+			}
+			
+		} while (!(userInput.equals("x")));
 	}
 
 }

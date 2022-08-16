@@ -12,13 +12,13 @@ public class Menu {
 	
 	private static Logger logger = new Logger();
 	private static BusinessLogic bl = new BusinessLogic();
-	private static AsciiUI ascii = new AsciiUI();
 	private static OrderUI orderUI = new OrderUI();
+	private static StoreFrontInventoryUI storeUI = new StoreFrontInventoryUI();
 	
 	public static void showWelcomeText() {
 		System.out.println("======================================");
 		System.out.println("Welcome to the PC Parts Emporium!");
-		ascii.printComputerArt();
+		AsciiUI.printComputerArt();
 		System.out.println("This Store Console App will help with all your PC part(s) shopping needs, whether it's for building for upgrading a current system.");
 		System.out.println("======================================\n");
 	}
@@ -141,10 +141,7 @@ public class Menu {
 			
 			switch(userInput) {
 			case "1":
-				//System.out.println("Feature Coming Soon!");
 				orderUI.placeOrderStart(sc);
-				//System.out.println("Back to Order Menu, userInput: " + userInput);
-				sc.nextLine();
 				break;
 			case "2":
 				System.out.println("Feature Coming Soon!");
@@ -171,17 +168,21 @@ public class Menu {
 			System.out.println("======================================");
 			System.out.println("Inventory Menu");
 			System.out.println("======================================");
-			System.out.println("[1] View inventory");
-			System.out.println("[2] Replenish inventory");
+			System.out.println("[1] View Inventory");
+			System.out.println("[2] View Store Front Inventory");
+			System.out.println("[3] Replenish Inventory");
 			System.out.println("[x] Exit Order Menu");
 			
 			userInput = sc.nextLine();
 			
 			switch(userInput) {
 			case "1":
-				bl.printAllProducts();
+				bl.printAllProductsFormatted();
 				break;
 			case "2":
+				storeUI.StoreFrontMenu(sc);
+				break;
+			case "3":
 				presentStoreFrontSelections(sc);
 				break;
 			case "x":

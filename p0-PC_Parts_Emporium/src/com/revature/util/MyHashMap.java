@@ -14,6 +14,11 @@ public class MyHashMap<K, V> {
         table = new MyEntry[capacity];
     }
 
+    /**
+     * Creates and Adds the given <Key,Value> Entry to the mapping.
+     * @param key
+     * @param value
+     */
     public void put(K key, V value){
     	int index = index(key);
     	MyEntry<K, V> newEntry = new MyEntry<K, V>(key, value, null);
@@ -35,6 +40,11 @@ public class MyHashMap<K, V> {
             }        
     }
 
+    /**
+     * Returns the Value of the given Key.
+     * @param key
+     * @return Value
+     */
     public V get(K key){
     	 V value = null;
          int index = index(key);
@@ -49,6 +59,10 @@ public class MyHashMap<K, V> {
          return value;      
     }
 
+    /**
+     * Removes the <Key,Value> entry from the mapping by the given Key.
+     * @param key
+     */
     public void remove(K key){
     	int index = index(key);
     	MyEntry<K, V> previous = null;
@@ -68,7 +82,32 @@ public class MyHashMap<K, V> {
             entry = entry.getNext();
         }        
     }
+    
+    /**
+     * Returns the size length of the mapping, hence the last key.
+     * @return
+     */
+    public int size() {
+    	int lastKey = 0;
+    	
+    	for(int i = 0; i < capacity; i++){
+            if(table[i] != null){
+            	MyEntry<K, V> currentNode = table[i];
+                while (currentNode != null){
+                    if((Integer)currentNode.getKey() > lastKey) {
+                    	lastKey = (Integer)currentNode.getKey();
+                    }
+                    currentNode = currentNode.getNext();
+                }
+            }
+        }
+    	
+    	return lastKey;
+    }
 
+    /**
+     * Print out Key -> Value mapping to the console.
+     */
     public void display(){
         for(int i = 0; i < capacity; i++){
             if(table[i] != null){
