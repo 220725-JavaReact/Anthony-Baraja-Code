@@ -5,9 +5,9 @@
 create table products (
 	id serial primary key,
 	store_id int not null,
-	name varchar(50) not null,
+	name varchar(150) not null,
 	price float NOT null,
-	description varchar(200) NOT null,
+	description varchar(300) NOT null,
 	category varchar(50) NOT null,
 	FOREIGN KEY (store_id) references storeFront(id)
 );
@@ -35,7 +35,7 @@ values (DEFAULT, 1, 'Intel Core i3-10105 3.7 GHz 4-Core', 89.99, 'The Intel i3 P
 (DEFAULT, 2, 'AMD Ryzen 7 5700X 3.4GHz 8-Core', 239.99, 'The AMD 7 Processors is optimized for high-FPS gaming rigs', 'CPU'),
 (DEFAULT, 3, 'AMD Ryzen 7 5700X 3.4GHz 8-Core', 239.99, 'The AMD 7 Processors is optimized for high-FPS gaming rigs', 'CPU'),
 (DEFAULT, 4, 'AMD Ryzen 7 5700X 3.4GHz 8-Core', 239.99, 'The AMD 7 Processors is optimized for high-FPS gaming rigs', 'CPU'),
-(DEFAULT, 2, 'AMD Ryzen 9 5900X 3.7GHz 12-Core', 399.99, 'The AMD 9 Processors is the world\'s most advanced processor with 12 cores for the world\'s elite gamers', 'CPU'),
+(DEFAULT, 2, 'AMD Ryzen 9 5900X 3.7GHz 12-Core', 399.99, 'The AMD 9 Processors is the world''s most advanced processor with 12 cores for the world''s elite gamers', 'CPU'),
 (DEFAULT, 2, 'ASUS Z690 Intel 12th Gen ATX Gaming Motherboard', 268.99, 'The ASUS Z690 motherboard takes all the essential elements of the latest Intel processors and combines them with game-ready features and proven durability', 'Motherboard'),
 (DEFAULT, 3, 'ASUS Z690 Intel 12th Gen ATX Gaming Motherboard', 268.99, 'The ASUS Z690 motherboard takes all the essential elements of the latest Intel processors and combines them with game-ready features and proven durability', 'Motherboard'),
 (DEFAULT, 4, 'ASUS Z690 Intel 12th Gen ATX Gaming Motherboard', 268.99, 'The ASUS Z690 motherboard takes all the essential elements of the latest Intel processors and combines them with game-ready features and proven durability', 'Motherboard'),
@@ -108,8 +108,8 @@ values (DEFAULT, 1, 'Intel Core i3-10105 3.7 GHz 4-Core', 89.99, 'The Intel i3 P
 (DEFAULT, 4, 'Seagate IronWolf 12TB Hard Drive', 229.99, 'The Seagate IronWolf enables dual-plane balancing and RAID optimization in multi-bay environments', 'Internal Drive'),
 (DEFAULT, 2, 'Crucial MX500 1TB Internal SSD', 82.99, 'The Crucial MX500 is a drive built on quality, speed, and security that’s all backed by helpful service and support', 'Internal Drive'),
 (DEFAULT, 3, 'Crucial MX500 1TB Internal SSD', 82.99, 'The Crucial MX500 is a drive built on quality, speed, and security that’s all backed by helpful service and support', 'Internal Drive'),
-(DEFAULT, 1, 'SAMSUNG 870 EVO Series 4TB Internal SSD', 399.99, 'The SAMSUNG 870 EVO has indisputable performance, reliability and compatibility built upon Samsung\'s pioneering technology', 'Internal Drive'),
-(DEFAULT, 4, 'SAMSUNG 870 EVO Series 4TB Internal SSD', 399.99, 'The SAMSUNG 870 EVO has indisputable performance, reliability and compatibility built upon Samsung\'s pioneering technology', 'Internal Drive'),
+(DEFAULT, 1, 'SAMSUNG 870 EVO Series 4TB Internal SSD', 399.99, 'The SAMSUNG 870 EVO has indisputable performance, reliability and compatibility built upon Samsung''s pioneering technology', 'Internal Drive'),
+(DEFAULT, 4, 'SAMSUNG 870 EVO Series 4TB Internal SSD', 399.99, 'The SAMSUNG 870 EVO has indisputable performance, reliability and compatibility built upon Samsung''s pioneering technology', 'Internal Drive'),
 (DEFAULT, 1, 'Noctua NH-L9i Low-Profile Cooler', 43.99, 'The Noctua NH-L9i is a premium quality quiet CPU cooler for Intel LGA115x based HTPCs and Small Form Factor systems', 'Cooling Unit'),
 (DEFAULT, 2, 'Noctua NH-L9i Low-Profile Cooler', 43.99, 'The Noctua NH-L9i is a premium quality quiet CPU cooler for Intel LGA115x based HTPCs and Small Form Factor systems', 'Cooling Unit'),
 (DEFAULT, 3, 'Noctua NH-L9i Low-Profile Cooler', 43.99, 'The Noctua NH-L9i is a premium quality quiet CPU cooler for Intel LGA115x based HTPCs and Small Form Factor systems', 'Cooling Unit'),
@@ -127,42 +127,12 @@ values (DEFAULT, 1, 'Intel Core i3-10105 3.7 GHz 4-Core', 89.99, 'The Intel i3 P
 (DEFAULT, 3, 'ASUS Xonar AE 7.1 Channels Interface Sound Card', 69.99, 'The ASUS Xonar AE is a gaming sound card built with high-quality components to satisfy gamers who demand exceptional sound for the best gaming and multimedia experiences', 'Sound Card'),
 (DEFAULT, 4, 'ASUS Xonar AE 7.1 Channels Interface Sound Card', 69.99, 'The ASUS Xonar AE is a gaming sound card built with high-quality components to satisfy gamers who demand exceptional sound for the best gaming and multimedia experiences', 'Sound Card');
 
-
-
-
-
-
-
-
-
-
-insert into products(id, name, price, description, category, store_id)
-values (DEFAULT, 'Intel Core i7-9000K', 299.99, '9th Generation Intel Core i7 Processors', 'Processors', 1),
- (DEFAULT, 'ASUS B550-A ATX Motherboard', 189.99, 'GAMING motherboard, based on the fresh AMD B550 chipset', 'Motherboards', 1),
- (DEFAULT, 'Corsair Viper 32GB RAM', 145.99, 'DDR5 Desktop Memory has the high speed needed for the next generation of multi-core CPUs', 'RAM', 1),
- (DEFAULT, 'EVGA NVIDIA GeForce RTX Graphics Card', 739.99, 'Provides high quality NVIDIA RTX experience to handle 1080p and 1440p gaming', 'Graphics Card', 1),
- (DEFAULT, 'Samsung 950 Pro SSD', 149.99, 'Unleash the power of the Samsung 950 PRO PCIe 4.0 SSD for next-level computing', 'Data Storage', 1),
- (DEFAULT, 'Montech X3 Tempered Glass Mid-Tower Computer Case', 67.99, 'PC Gaming case, delivers the best Price per Performance ratio Montech has to offer', 'Computer Case', 1),
- (DEFAULT, 'Cooler Master Hyper 212 CPU Air Cooler', 61.99, 'Cooling solution for heavy computing performance', 'Cooling Unit', 1),
- (DEFAULT, 'ASUS XONAR 5.1 Channel PCIe Sound Card', 48.99, 'Sound card built with high-quality components to satisfy users experience', 'Sound Card', 1),
- (DEFAULT, 'Intel Core i7-9000K', 299.99, '9th Generation Intel Core i7 Processors', 'Processors', 2),
- (DEFAULT, 'Intel Core i7-9000K', 299.99, '9th Generation Intel Core i7 Processors', 'Processors', 4),
- (DEFAULT, 'ASUS B550-A ATX Motherboard', 189.99, 'GAMING motherboard, based on the fresh AMD B550 chipset', 'Motherboards', 2),
- (DEFAULT, 'ASUS B550-A ATX Motherboard', 189.99, 'GAMING motherboard, based on the fresh AMD B550 chipset', 'Motherboards', 3),
- (DEFAULT, 'ASUS B550-A ATX Motherboard', 189.99, 'GAMING motherboard, based on the fresh AMD B550 chipset', 'Motherboards', 4),
- (DEFAULT, 'Corsair Viper 32GB RAM', 145.99, 'DDR5 Desktop Memory has the high speed needed for the next generation of multi-core CPUs', 'RAM', 3),
- (DEFAULT, 'Corsair Viper 32GB RAM', 145.99, 'DDR5 Desktop Memory has the high speed needed for the next generation of multi-core CPUs', 'RAM', 4),
- (DEFAULT, 'EVGA NVIDIA GeForce RTX Graphics Card', 739.99, 'Provides high quality NVIDIA RTX experience to handle 1080p and 1440p gaming', 'Graphics Card', 2),
- (DEFAULT, 'EVGA NVIDIA GeForce RTX Graphics Card', 739.99, 'Provides high quality NVIDIA RTX experience to handle 1080p and 1440p gaming', 'Graphics Card', 3),
- (DEFAULT, 'Cooler Master Hyper 212 CPU Air Cooler', 61.99, 'Cooling solution for heavy computing performance', 'Cooling Unit', 4),
- (DEFAULT, 'ASUS XONAR 5.1 Channel PCIe Sound Card', 48.99, 'Sound card built with high-quality components to satisfy users experience', 'Sound Card', 3),
- (DEFAULT, 'ASUS XONAR 5.1 Channel PCIe Sound Card', 48.99, 'Sound card built with high-quality components to satisfy users experience', 'Sound Card', 4);
-
 insert into products
 values (Default, 'Test Product', 99.99, 'Test serial auto increment', 'Processors', 1);
 
 select * from products where store_id = 2;
 select id from products where store_id = 2;
+select * from products where id = 60;
 
 -- Table: LineItems
 -- Quantity of a Product available
@@ -176,31 +146,129 @@ create table lineItems (
 );
 
 select * from lineitems;
+select * from lineitems where product_id = 10;
 
 drop table lineitems CASCADE;
 
 insert into lineitems
-values (1, 1, 2),
-(2, 2, 8),
-(3, 3, 23),
-(4, 4, 7),
-(5, 5, 4),
-(6, 6, 8),
-(7, 7, 10),
-(8, 8, 7),
-(9, 20, 2),
-(10, 18, 1),
-(11, 17, 1),
-(12, 19, 1);
+values (DEFAULT, 1, 8),
+(DEFAULT, 2, 7),
+(DEFAULT, 3, 8),
+(DEFAULT, 4, 8),
+(DEFAULT, 5, 8),
+(DEFAULT, 6, 6),
+(DEFAULT, 7, 5),
+(DEFAULT, 8, 3),
+(DEFAULT, 9, 8),
+(DEFAULT, 10, 2),
+(DEFAULT, 11, 5),
+(DEFAULT, 12, 8),
+(DEFAULT, 13, 4),
+(DEFAULT, 14, 2),
+(DEFAULT, 15, 7),
+(DEFAULT, 16, 6),
+(DEFAULT, 17, 3),
+(DEFAULT, 18, 3),
+(DEFAULT, 19, 2),
+(DEFAULT, 20, 7),
+(DEFAULT, 21, 3),
+(DEFAULT, 22, 6),
+(DEFAULT, 23, 2),
+(DEFAULT, 24, 2),
+(DEFAULT, 25, 8),
+(DEFAULT, 26, 3),
+(DEFAULT, 27, 7),
+(DEFAULT, 28, 8),
+(DEFAULT, 29, 7),
+(DEFAULT, 30, 8),
+(DEFAULT, 31, 6),
+(DEFAULT, 32, 5),
+(DEFAULT, 33, 8),
+(DEFAULT, 34, 7),
+(DEFAULT, 35, 6),
+(DEFAULT, 36, 6),
+(DEFAULT, 37, 6),
+(DEFAULT, 38, 7),
+(DEFAULT, 39, 4),
+(DEFAULT, 40, 5),
+(DEFAULT, 41, 5),
+(DEFAULT, 42, 8),
+(DEFAULT, 43, 5),
+(DEFAULT, 44, 3),
+(DEFAULT, 45, 3),
+(DEFAULT, 46, 3),
+(DEFAULT, 47, 6),
+(DEFAULT, 48, 8),
+(DEFAULT, 49, 7),
+(DEFAULT, 50, 4),
+(DEFAULT, 51, 2),
+(DEFAULT, 52, 6),
+(DEFAULT, 53, 2),
+(DEFAULT, 54, 4),
+(DEFAULT, 55, 4),
+(DEFAULT, 56, 6),
+(DEFAULT, 57, 5),
+(DEFAULT, 58, 5),
+(DEFAULT, 59, 6),
+(DEFAULT, 60, 8),
+(DEFAULT, 61, 2),
+(DEFAULT, 62, 4),
+(DEFAULT, 63, 4),
+(DEFAULT, 64, 5),
+(DEFAULT, 65, 5),
+(DEFAULT, 66, 3),
+(DEFAULT, 67, 4),
+(DEFAULT, 68, 7),
+(DEFAULT, 69, 7),
+(DEFAULT, 70, 6),
+(DEFAULT, 71, 7),
+(DEFAULT, 72, 7),
+(DEFAULT, 73, 6),
+(DEFAULT, 74, 3),
+(DEFAULT, 75, 2),
+(DEFAULT, 76, 2),
+(DEFAULT, 77, 2),
+(DEFAULT, 78, 6),
+(DEFAULT, 79, 2),
+(DEFAULT, 80, 6),
+(DEFAULT, 81, 2),
+(DEFAULT, 82, 3),
+(DEFAULT, 83, 8),
+(DEFAULT, 84, 3),
+(DEFAULT, 85, 5),
+(DEFAULT, 86, 2),
+(DEFAULT, 87, 4),
+(DEFAULT, 88, 5),
+(DEFAULT, 89, 6),
+(DEFAULT, 90, 4),
+(DEFAULT, 91, 6),
+(DEFAULT, 92, 8),
+(DEFAULT, 93, 4),
+(DEFAULT, 94, 3),
+(DEFAULT, 95, 7),
+(DEFAULT, 96, 4),
+(DEFAULT, 97, 5),
+(DEFAULT, 98, 4),
+(DEFAULT, 99, 7),
+(DEFAULT, 100, 7),
+(DEFAULT, 101, 5),
+(DEFAULT, 102, 2),
+(DEFAULT, 103, 6),
+(DEFAULT, 104, 6),
+(DEFAULT, 105, 4),
+(DEFAULT, 106, 8),
+(DEFAULT, 107, 3),
+(DEFAULT, 108, 8),
+(DEFAULT, 109, 4);
 
-select * from lineItems where product_id = 4;
+select * from lineItems where product_id = 60;
 
 -- Update lineitems 
 update lineitems set quantity = 8 where product_id = 4;
 update lineitems set quantity = 2 where product_id = 20;
 
 -- Table: Orders
--- Contain information about an order, acts like a receipt
+-- Contain information about an order, acts like part of a receipt
 -- Used for StoreFront and Customers
 
 create table orders (
@@ -208,24 +276,40 @@ create table orders (
 	lineItem_id int NOT NULL,
 	store_id int NOT NULL,
 	customer_id int NOT NULL,
+	order_link int NOT NULL,
 	totalPrice float NOT null,
 	FOREIGN KEY (lineItem_id) references lineItems(id),
 	FOREIGN KEY (store_id) references storefront(id),
-	FOREIGN KEY (customer_id) references customers(id)
+	FOREIGN KEY (customer_id) references customers(id),
+	FOREIGN KEY (order_link) references orderlink(id)
 );
 
 select * from orders;
+select * from orders order by order_link asc;
+select * from orders order by totalPrice asc;
+select * from orders where customer_id = 1 order by order_link ASC;
+select * from orders where customer_id = 1 order by order_link desc;
+select * from orders where customer_id = 1 order by order_link DESC;
+
+select * from orders where store_id = 2 order by order_link ASC;
+
+select orders.* from orders
+join orderlink
+on orders.order_link = orderlink.id and orders.customer_id = 1
+order by orderlink.subtotal asc;
+
+select orders.* from orders join orderlink on orders.order_link = orderlink.id and orders.customer_id = 1  order by orderlink.subtotal desc;
+
+select orders.* from orders join orderlink on orders.order_link = orderlink.id and orders.store_id = 2  order by orderlink.subtotal desc;
 
 drop table orders CASCADE;
 
 insert into orders
-values (DEFAULT, 1, 2, 1, 599.98),
-(DEFAULT, 2, 2, 1, 1519.92),
-(DEFAULT, 5, 2, 1, 599.96),
-(DEFAULT, 11, 3, 2, 739.99),
-(DEFAULT, 12, 3, 2, 48.99);
+values (DEFAULT, 1, 2, 1, 1, 599.98),
+(DEFAULT, 2, 2, 1, 2, 1519.92),
+(DEFAULT, 5, 2, 1, 3, 599.96);
 
-Insert into orders (id, lineItem_id, store_id, customer_id, totalPrice) values (DEFAULT, 1, 2, 1, 599.98);
+Insert into orders (id, lineItem_id, store_id, customer_id, order_link, totalPrice) values (DEFAULT, 1, 2, 1, 599.98);
 
 update orders set lineItem_id = ?, store_id = ?, customer_id = ?, totalPrice = ? where id = ?
 UPDATE table_name
@@ -233,6 +317,26 @@ SET column1 = value1, column2 = value2, ...
 WHERE condition;
 
 DELETE FROM orders WHERE id=?
+
+-- Table: OrderLinks
+-- Contain Full order, acts like a receipt
+
+create table orderlink (
+	id serial primary key,
+	subTotal float not null
+);
+
+select * from orderlink;
+
+drop table orderlink CASCADE;
+
+DELETE FROM orderlink WHERE id=4;
+
+insert into orderlink
+values (DEFAULT, 599.98),
+(DEFAULT, 1519.92),
+(DEFAULT, 599.96);
+
 
 -- Table: StoreFront
 -- Contain Store information, inventory lookup

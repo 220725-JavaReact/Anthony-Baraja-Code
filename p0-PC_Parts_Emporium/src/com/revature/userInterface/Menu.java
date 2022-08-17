@@ -23,8 +23,16 @@ public class Menu {
 		System.out.println("======================================\n");
 	}
 	
+	public static void showGoodByeText() {
+		System.out.println("============================================================================");
+		System.out.println("Thank's for stopping by.");
+		AsciiUI.printComputerTwoArt();
+		System.out.println("Goodbye!");
+		System.out.println("============================================================================\n");
+	}
+	
 	/**
-	 * Display Menu, execute options
+	 * Display Main Menu, prompt user to select main menu options, or exit the store console.
 	 */
 	public static void presentMenu() {		
 		
@@ -106,10 +114,9 @@ public class Menu {
 				BusinessLogic.addCustomer(name, address, email, phone);
 				break;
 			case "3":
-				//System.out.println("Feature Coming Soon!");
 				System.out.println("Enter customer name: ");
 				String nameInput = sc.nextLine();
-				bl.printCustomerByName(nameInput);				
+				bl.printCustomerByName(nameInput);
 				break;
 			case "x":
 				System.out.println("Returning to Main Menu");
@@ -144,7 +151,7 @@ public class Menu {
 				orderUI.placeOrderStart(sc);
 				break;
 			case "2":
-				System.out.println("Feature Coming Soon!");
+				orderUI.orderHistoryMenu(sc);
 				break;
 			case "x":
 				System.out.println("Returning to Main Menu");

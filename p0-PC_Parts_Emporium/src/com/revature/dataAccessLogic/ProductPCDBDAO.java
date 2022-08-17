@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.models.ProductPC;
-import com.revature.models.StoreFront;
 import com.revature.util.ConnectionFactory;
 
 public class ProductPCDBDAO implements Dao<ProductPC>, ProductInterface<ProductPC> {

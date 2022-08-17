@@ -8,9 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.revature.models.LineItems;
 import com.revature.models.Order;
-import com.revature.models.StoreFront;
 import com.revature.util.ConnectionFactory;
 
 public class OrdersDaoLogic implements Dao<Order> {
@@ -47,6 +45,24 @@ public class OrdersDaoLogic implements Dao<Order> {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return orderList;
+	}
+	
+	public List<Order> getAllByOrderLinkAsc(){
+		List<Order> orderList = new ArrayList<Order>();
+		
+		try(Connection connect = ConnectionFactory.getInstance().getConnection()) {
+			String query = "select * from orders order by order_link asc";
+			Statement stmt = connect.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while(rs.next()) {
+				orderList.add(new Order(rs.getInt("id"), rs.getInt("lineItem_id"), rs.getInt("store_id"), rs.getInt("customer_id"), rs.getInt("order_link"), rs.getDouble("totalPrice")));
+			}
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
@@ -102,6 +118,36 @@ public class OrdersDaoLogic implements Dao<Order> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public List<Order> getAllByOrderLinkCustomer(String orderBySelection, int customerId, String sort, String filterPick) {
+		List<Order> orderList = new ArrayList<Order>();
+		String query = "";
+		
+		if(filterPick.equals("customer") && sort.equals("price")) {
+			query = "select orders.* from orders join orderlink on orders.order_link = orderlink.id and orders.customer_id = ?  order by orderlink.subtotal " + orderBySelection;
+		}else if(filterPick.equals("customer") && sort.equals("orderNum")) {
+			query = "select * from orders where customer_id = ? order by order_link " + orderBySelection;
+		}else if(filterPick.equals("store") && sort.equals("price")) {
+			query = "select orders.* from orders join orderlink on orders.order_link = orderlink.id and orders.store_id = ?  order by orderlink.subtotal " + orderBySelection;
+		}else {
+			query = "select * from orders where store_id = ? order by order_link " + orderBySelection;
+		}
+		
+		try(Connection connect = ConnectionFactory.getInstance().getConnection()) {
+			
+			PreparedStatement pstmt = connect.prepareStatement(query);
+			pstmt.setInt(1, customerId);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				orderList.add(new Order(rs.getInt("id"), rs.getInt("lineItem_id"), rs.getInt("store_id"), rs.getInt("customer_id"), rs.getInt("order_link"), rs.getDouble("totalPrice")));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return orderList;
 	}
 
 }

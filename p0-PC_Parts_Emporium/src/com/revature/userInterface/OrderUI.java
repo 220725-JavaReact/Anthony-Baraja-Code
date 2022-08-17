@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.revature.businessLogic.BusinessLogic;
-import com.revature.models.LineItems;
 import com.revature.models.Order;
 import com.revature.models.OrderLink;
 import com.revature.models.ProductPC;
@@ -123,6 +122,10 @@ public class OrderUI {
 		}
 	}
 	
+	/**
+	 * Display the 
+	 * @param sc - Scanner
+	 */
 	public void orderHistoryMenu(Scanner sc) {
 		String userInput = "";
 		
@@ -132,24 +135,257 @@ public class OrderUI {
 			System.out.println("Order History Menu");
 			System.out.println("======================================");
 			System.out.println("[1] View All Past Orders");
-			System.out.println("[2] View By Customer");
-			System.out.println("[3] View By Store Front");
-			System.out.println("[x] Exit Order Menu");
+			System.out.println("[2] View By a Customer");
+			System.out.println("[3] View By a Store Front");
+			System.out.println("[x] Exit Order History Menu");
 			
 			userInput = sc.nextLine();
 			
 			switch(userInput) {
 			case "1":
-				System.out.println("Feature Coming Soon!");
+				//System.out.println("Feature Coming Soon!");
+				System.out.println();
+				bl.printAllOrderHistory();
+				System.out.println();
 				break;
 			case "2":
-				System.out.println("Feature Coming Soon!");
+				
+				// Get User Inputs
+				System.out.println("\n======================================");
+				System.out.println("Select Customer: ");
+				bl.printAllCustomerSelections();
+				String customerId = sc.nextLine();
+				int customerIdInt = Integer.parseInt(customerId);
+				
+				orderHistoryByCustomerMenu(sc, customerIdInt);
 				break;
 			case "3":
-				System.out.println("Feature Coming Soon!");
+				//System.out.println("Feature Coming Soon!");
+				System.out.println("\n======================================");
+				System.out.println("Select a Store Front: ");
+				bl.printStoreFrontSelections();
+				String storeId = sc.nextLine();
+				int storeIdInt = Integer.parseInt(storeId);
+				
+				orderHistoryByStoreMenu(sc, storeIdInt);
 				break;
 			case "x":
-				System.out.println("Returning to Main Menu");
+				System.out.println("Returning to Order Menu");
+				break;
+			default:
+				System.out.println("Wrong input. Please try again using one of the valid options.");
+				break;
+			}
+			
+		} while (!(userInput.equals("x")));
+	}
+	
+	private void orderHistoryByStoreMenu(Scanner sc, int storeId) {
+		String userInput = "";
+		
+		do {
+
+			System.out.println("======================================");
+			System.out.println("Order History By Store Front");
+			System.out.println("======================================");
+			System.out.println("[1] View By Order #");
+			System.out.println("[2] View By Total Price");
+			System.out.println("[x] Exit Order History Customer Menu");
+			
+			userInput = sc.nextLine();
+			
+			switch(userInput) {
+			case "1":
+				System.out.println();
+				orderHistoryByStoreByOrderNums(sc, storeId, "orderNum");
+				System.out.println();
+				break;
+			case "2":
+				orderHistoryByStoreByTotalPrice(sc, storeId, "price");
+				break;
+			case "x":
+				System.out.println("Returning to Order History Menu");
+				break;
+			default:
+				System.out.println("Wrong input. Please try again using one of the valid options.");
+				break;
+			}
+			
+		} while (!(userInput.equals("x")));
+		
+	}
+
+	private void orderHistoryByStoreByTotalPrice(Scanner sc, int storeId, String orderPick) {
+		String userInput = "";
+		
+		do {
+
+			System.out.println("======================================");
+			System.out.println("By Order History Store Front - By Total Price $$$");
+			System.out.println("======================================");
+			System.out.println("[1] In Ascending Order");
+			System.out.println("[2] In Descending Order");
+			System.out.println("[x] Back to Order History Customer Menu");
+			
+			userInput = sc.nextLine();
+			
+			switch(userInput) {
+			case "1":
+				System.out.println();
+				bl.printAllCustomerOrderHistory("ASC", storeId, orderPick, "customer");
+				System.out.println();
+				break;
+			case "2":
+				System.out.println();
+				bl.printAllCustomerOrderHistory("DESC", storeId, orderPick, "customer");
+				System.out.println();
+				break;
+			case "x":
+				System.out.println("Returning to Order History Menu");
+				break;
+			default:
+				System.out.println("Wrong input. Please try again using one of the valid options.");
+				break;
+			}
+			
+		} while (!(userInput.equals("x")));
+		
+	}
+
+	private void orderHistoryByStoreByOrderNums(Scanner sc, int storeId, String orderPick) {
+		String userInput = "";
+		
+		do {
+
+			System.out.println("======================================");
+			System.out.println("By Order History Store Front - By Order #");
+			System.out.println("======================================");
+			System.out.println("[1] In Ascending Order");
+			System.out.println("[2] In Descending Order");
+			System.out.println("[x] Back to Order History Customer Menu");
+			
+			userInput = sc.nextLine();
+			
+			switch(userInput) {
+			case "1":
+				System.out.println();
+				bl.printAllCustomerOrderHistory("ASC", storeId, orderPick, "store");
+				System.out.println();
+				break;
+			case "2":
+				System.out.println();
+				bl.printAllCustomerOrderHistory("DESC", storeId, orderPick, "store");
+				System.out.println();
+				break;
+			case "x":
+				System.out.println("Returning to Order History Menu");
+				break;
+			default:
+				System.out.println("Wrong input. Please try again using one of the valid options.");
+				break;
+			}
+			
+		} while (!(userInput.equals("x")));
+	}
+
+	public void orderHistoryByCustomerMenu(Scanner sc, int customerId) {
+		String userInput = "";
+		
+		do {
+
+			System.out.println("======================================");
+			System.out.println("Order History By Customer");
+			System.out.println("======================================");
+			System.out.println("[1] View By Order #");
+			System.out.println("[2] View By Total Price");
+			System.out.println("[x] Exit Order History Customer Menu");
+			
+			userInput = sc.nextLine();
+			
+			switch(userInput) {
+			case "1":
+				System.out.println();
+				orderHistoryByCustomerByOrderNums(sc, customerId, "orderNum");
+				System.out.println();
+				break;
+			case "2":
+				orderHistoryByCustomerByTotalPrice(sc, customerId, "price");
+				break;
+			case "x":
+				System.out.println("Returning to Order History Menu");
+				break;
+			default:
+				System.out.println("Wrong input. Please try again using one of the valid options.");
+				break;
+			}
+			
+		} while (!(userInput.equals("x")));
+	}
+	
+	private void orderHistoryByCustomerByTotalPrice(Scanner sc, int customerId, String orderPick) {
+		String userInput = "";
+		
+		do {
+
+			System.out.println("======================================");
+			System.out.println("By Order History Customer - By Total Price $$$");
+			System.out.println("======================================");
+			System.out.println("[1] In Ascending Order");
+			System.out.println("[2] In Descending Order");
+			System.out.println("[x] Back to Order History Customer Menu");
+			
+			userInput = sc.nextLine();
+			
+			switch(userInput) {
+			case "1":
+				System.out.println();
+				bl.printAllCustomerOrderHistory("ASC", customerId, orderPick, "customer");
+				System.out.println();
+				break;
+			case "2":
+				System.out.println();
+				bl.printAllCustomerOrderHistory("DESC", customerId, orderPick, "customer");
+				System.out.println();
+				break;
+			case "x":
+				System.out.println("Returning to Order History Menu");
+				break;
+			default:
+				System.out.println("Wrong input. Please try again using one of the valid options.");
+				break;
+			}
+			
+		} while (!(userInput.equals("x")));
+		
+	}
+
+	public void orderHistoryByCustomerByOrderNums(Scanner sc, int customerId, String orderPick) {
+		String userInput = "";
+		
+		do {
+
+			System.out.println("======================================");
+			System.out.println("By Order History Customer - By Order #");
+			System.out.println("======================================");
+			System.out.println("[1] In Ascending Order");
+			System.out.println("[2] In Descending Order");
+			System.out.println("[x] Back to Order History Customer Menu");
+			
+			userInput = sc.nextLine();
+			
+			switch(userInput) {
+			case "1":
+				System.out.println();
+				bl.printAllCustomerOrderHistory("ASC", customerId, orderPick, "customer");
+				System.out.println();
+				break;
+			case "2":
+				System.out.println();
+				bl.printAllCustomerOrderHistory("DESC", customerId, orderPick, "customer");
+				System.out.println();
+				break;
+			case "x":
+				System.out.println("Returning to Order History Menu");
 				break;
 			default:
 				System.out.println("Wrong input. Please try again using one of the valid options.");

@@ -4,10 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import com.revature.models.LineItems;
-import com.revature.models.StoreFront;
 import com.revature.util.ConnectionFactory;
 
 public class LineItemsDaoLogic implements Dao<LineItems>, LineItemInterface {

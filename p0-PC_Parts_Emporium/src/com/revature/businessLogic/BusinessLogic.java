@@ -285,14 +285,104 @@ public class BusinessLogic {
 		System.out.println("Subtotal: " + currentOrder.getTotalPrice());
 		
 	}
+	
+	public void printAllOrderHistory() {
+		
+		List<Order> orderGroup = new ArrayList<Order>();
+		int prevOrderLinkId = 1;
+		int currentOrderLinkId = 1;
+		
+		for(Order order: orderDao.getAllByOrderLinkAsc()) {
+			currentOrderLinkId = order.getOrder_link();
+			
+			if(currentOrderLinkId == prevOrderLinkId) {
+				orderGroup.add(order);
+			}else {
+				System.out.println("============================================================================");
+				printOrderDetails(orderGroup);
+				orderGroup = new ArrayList<Order>();
+				orderGroup.add(order);
+			}
+			
+			prevOrderLinkId = currentOrderLinkId;
+		}
+		
+		// Display last order group
+		System.out.println("============================================================================");
+		printOrderDetails(orderGroup);
+		
+	}
+	
+	/**
+	 * Prints the Order History of a Customer by the given order.
+	 * @param orderBySelection
+	 * @param customerId
+	 */
+	public void printAllCustomerOrderHistory(String orderBySelection, int customerId, String orderPick, String filterPick) {
+		
+		List<Order> orderGroup = new ArrayList<Order>();
+		int prevOrderLinkId = -1;
+		int currentOrderLinkId = 1;
+		
+		if(filterPick.equals("customer")) {
+			AsciiUI.printCustomerHistoryArt();
+		}else {
+			AsciiUI.printStoreFrontHistoryArt();
+		}
+		
+		for(Order order: orderDao.getAllByOrderLinkCustomer(orderBySelection, customerId, orderPick, filterPick)) {
+			currentOrderLinkId = order.getOrder_link();
+			
+			if(currentOrderLinkId != prevOrderLinkId && prevOrderLinkId != -1) {
+				printOrderDetails(orderGroup);
+				orderGroup = new ArrayList<Order>();
+			}
+			
+			orderGroup.add(order);
+			prevOrderLinkId = currentOrderLinkId;
+		}
+		
+		// Display last order group
+		System.out.println("============================================================================");
+		printOrderDetails(orderGroup);
+		
+	}
+	
+	public void printOrderDetails(List<Order> orderList) {
+		
+		int orderNumDisplay = orderList.get(0).getOrder_link();
+		System.out.println("\n***** ORDER #" + orderNumDisplay + " *****");
+		
+		int currentstoreFrontId = orderList.get(0).getStore_id();
+		System.out.println("\nSTORE: " + storeFrontDao.get(currentstoreFrontId).getName() + "  ||  ADDRESS: " + storeFrontDao.get(currentstoreFrontId).getAddress());
+		
+		Double subTotal = 0.00;
+		
+		for(Order order: orderList) {
+			System.out.println("----------------------------------------------------------");
+			
+			LineItems currentLineItem = lineItemsDao.get(order.getLineItem_id());
+			ProductPC currentProductPC = productDao.get(currentLineItem.getProductId());
+			Double currentProdPrice = currentProductPC.getPrice();
+			Double currentOrderTotalPrice = order.getTotalPrice();
+			int currentQty = (int) (currentOrderTotalPrice / currentProdPrice);
+			subTotal += currentOrderTotalPrice;
+			
+			System.out.println("PC Component: " + currentProductPC.getCategory() + "  ||  " + currentProductPC.getName() + "  ||  qty: " + currentQty + "  ||  Price = $" + currentOrderTotalPrice);
+			
+		}
+		System.out.println("\nSubtotal = $" + subTotal);
+		System.out.println("Grand Total(+tax) = $" + orderLinkDao.get(orderNumDisplay).getSubTotal());
+		
+	}
 
 	public void printOrderDetails(List<Order> currentOrdersList, ArrayList<Integer> orderQtyList) {
 		
 		int orderNumDisplay = orderLinkDao.getAll().size() + 1;
-		System.out.println("ORDER #" + orderNumDisplay);
+		System.out.println("\n***** ORDER #" + orderNumDisplay + " *****");
 		
 		int currentstoreFrontId = currentOrdersList.get(0).getStore_id();
-		System.out.println("STORE: " + storeFrontDao.get(currentstoreFrontId).getName() + "  ||  " + storeFrontDao.get(currentstoreFrontId).getAddress());
+		System.out.println("STORE: " + storeFrontDao.get(currentstoreFrontId).getName() + "  ||  ADDRESS: " + storeFrontDao.get(currentstoreFrontId).getAddress());
 		
 		Double subTotal = 0.0;
 		
@@ -304,7 +394,7 @@ public class BusinessLogic {
 			int userQuantity = orderQtyList.get(i);
 			Double currentLinePrice = currentProductPC.getPrice()*userQuantity;
 			subTotal += currentLinePrice;
-			System.out.println("PC Component: " + currentProductPC.getCategory() + "  ||  " + currentProductPC.getName() + "  ||  qty:" + userQuantity + "  ||  $" + currentLinePrice);
+			System.out.println("PC Component: " + currentProductPC.getCategory() + "  ||  " + currentProductPC.getName() + "  ||  qty:" + userQuantity + "  ||  Price = $" + currentLinePrice);
 		}
 		System.out.println("\nSubtotal = $" + subTotal);
 		System.out.println("----------------------------------------------------------");

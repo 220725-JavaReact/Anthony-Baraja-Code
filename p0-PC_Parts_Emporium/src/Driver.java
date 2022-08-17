@@ -6,6 +6,7 @@ public class Driver {
 		
 		Menu.showWelcomeText();
 		Menu.presentMenu();
+		Menu.showGoodByeText();
 
 	}
 
