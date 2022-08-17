@@ -10,8 +10,12 @@ import java.util.List;
 
 import com.revature.models.Customer;
 import com.revature.util.ConnectionFactory;
+import com.revature.util.Logger;
+import com.revature.util.Logger.LogLevel;
 
 public class CustomerDBDAOLogic implements Dao<Customer>, CustomerInterface{
+	
+	private static Logger logger = new Logger();
 
 	@Override
 	public Customer get(int id) {
@@ -20,11 +24,14 @@ public class CustomerDBDAOLogic implements Dao<Customer>, CustomerInterface{
 			PreparedStatement pstmt = connect.prepareStatement(query);
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
+			
+			logger.logDB(LogLevel.info, "GET  ->  customers");
+			
 			if(rs.next()) {
 				return new Customer(rs.getInt("id"), rs.getString("name"), rs.getString("address"), rs.getString("email"), rs.getString("phone_number"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
@@ -38,6 +45,9 @@ public class CustomerDBDAOLogic implements Dao<Customer>, CustomerInterface{
 			PreparedStatement pstmt = connect.prepareStatement(query);
 			pstmt.setString(1, "%" + name + "%");
 			ResultSet rs = pstmt.executeQuery();
+			
+			logger.logDB(LogLevel.info, "GET  ->  customers");
+			
 			if(rs.next()) {
 				return new Customer(rs.getInt("id"), rs.getString("name"), rs.getString("address"), rs.getString("email"), rs.getString("phone_number"));
 			}
@@ -57,6 +67,9 @@ public class CustomerDBDAOLogic implements Dao<Customer>, CustomerInterface{
 			String query = "select * from customers";
 			Statement stmt = connect.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
+			
+			logger.logDB(LogLevel.info, "GET  ->  customers");
+			
 			while(rs.next()) {
 				customerList.add(new Customer(rs.getInt("id"), rs.getString("name"), rs.getString("address"), rs.getString("email"), rs.getString("phone_number")));
 			}
@@ -80,6 +93,8 @@ public class CustomerDBDAOLogic implements Dao<Customer>, CustomerInterface{
 			pstmt.setString(3, t.getEmail());
 			pstmt.setString(4, t.getPhone());
 			pstmt.execute();
+			
+			logger.logDB(LogLevel.info, "CREATE  ->  customers");
 			
 		} catch (Exception e) {
 			// TODO: handle exception

@@ -17,7 +17,7 @@ public class OrderUI {
 	public void placeOrderStart(Scanner sc) {
 		
 		// Get User Inputs
-		System.out.println("======================================");
+		System.out.println("\n======================================");
 		System.out.println("Select Customer: ");
 		bl.printAllCustomerSelections();
 		String customerId = sc.nextLine();
@@ -25,7 +25,7 @@ public class OrderUI {
 		
 		System.out.println();
 
-		System.out.println("======================================");
+		System.out.println("\n======================================");
 		System.out.println("Select Store Front: ");
 		bl.printStoreFrontSelections();
 		String storeId = sc.nextLine();
@@ -50,7 +50,7 @@ public class OrderUI {
 	public void placeOrderLoopProductPrompt(Scanner sc, List<Order> currentOrdersList, int index, ArrayList<Integer> orderQtyList) {
 		Order currentOrder = currentOrdersList.get(index);
 		
-		System.out.println("======================================");
+		System.out.println("\n======================================");
 		System.out.println("Select Product: ");
 		MyHashMap<Integer, ProductPC> storeMap = bl.mapProductsByStoreID(currentOrder.getStore_id());
 		bl.printAllProductsFromMap(storeMap);
@@ -86,7 +86,7 @@ public class OrderUI {
 			sc.nextLine();
 			
 			do {
-				System.out.println("======================================");
+				System.out.println("\n======================================");
 				System.out.println("Please select the following options:");
 				System.out.println("======================================");
 				System.out.println("[1] Keep Shopping");
@@ -131,7 +131,7 @@ public class OrderUI {
 		
 		do {
 
-			System.out.println("======================================");
+			System.out.println("\n======================================");
 			System.out.println("Order History Menu");
 			System.out.println("======================================");
 			System.out.println("[1] View All Past Orders");
@@ -185,12 +185,12 @@ public class OrderUI {
 		
 		do {
 
-			System.out.println("======================================");
+			System.out.println("\n======================================");
 			System.out.println("Order History By Store Front");
 			System.out.println("======================================");
 			System.out.println("[1] View By Order #");
 			System.out.println("[2] View By Total Price");
-			System.out.println("[x] Exit Order History Customer Menu");
+			System.out.println("[x] Exit Order History Store Front");
 			
 			userInput = sc.nextLine();
 			
@@ -220,45 +220,8 @@ public class OrderUI {
 		
 		do {
 
-			System.out.println("======================================");
+			System.out.println("\n======================================");
 			System.out.println("By Order History Store Front - By Total Price $$$");
-			System.out.println("======================================");
-			System.out.println("[1] In Ascending Order");
-			System.out.println("[2] In Descending Order");
-			System.out.println("[x] Back to Order History Customer Menu");
-			
-			userInput = sc.nextLine();
-			
-			switch(userInput) {
-			case "1":
-				System.out.println();
-				bl.printAllCustomerOrderHistory("ASC", storeId, orderPick, "customer");
-				System.out.println();
-				break;
-			case "2":
-				System.out.println();
-				bl.printAllCustomerOrderHistory("DESC", storeId, orderPick, "customer");
-				System.out.println();
-				break;
-			case "x":
-				System.out.println("Returning to Order History Menu");
-				break;
-			default:
-				System.out.println("Wrong input. Please try again using one of the valid options.");
-				break;
-			}
-			
-		} while (!(userInput.equals("x")));
-		
-	}
-
-	private void orderHistoryByStoreByOrderNums(Scanner sc, int storeId, String orderPick) {
-		String userInput = "";
-		
-		do {
-
-			System.out.println("======================================");
-			System.out.println("By Order History Store Front - By Order #");
 			System.out.println("======================================");
 			System.out.println("[1] In Ascending Order");
 			System.out.println("[2] In Descending Order");
@@ -278,7 +241,44 @@ public class OrderUI {
 				System.out.println();
 				break;
 			case "x":
-				System.out.println("Returning to Order History Menu");
+				System.out.println("Returning to Order History By Store Front Menu");
+				break;
+			default:
+				System.out.println("Wrong input. Please try again using one of the valid options.");
+				break;
+			}
+			
+		} while (!(userInput.equals("x")));
+		
+	}
+
+	private void orderHistoryByStoreByOrderNums(Scanner sc, int storeId, String orderPick) {
+		String userInput = "";
+		
+		do {
+
+			System.out.println("\n======================================");
+			System.out.println("By Order History Store Front - By Order #");
+			System.out.println("======================================");
+			System.out.println("[1] In Ascending Order");
+			System.out.println("[2] In Descending Order");
+			System.out.println("[x] Back to Order History By Store Front");
+			
+			userInput = sc.nextLine();
+			
+			switch(userInput) {
+			case "1":
+				System.out.println();
+				bl.printAllCustomerOrderHistory("ASC", storeId, orderPick, "store");
+				System.out.println();
+				break;
+			case "2":
+				System.out.println();
+				bl.printAllCustomerOrderHistory("DESC", storeId, orderPick, "store");
+				System.out.println();
+				break;
+			case "x":
+				System.out.println("Returning to Order History By Store Front Menu");
 				break;
 			default:
 				System.out.println("Wrong input. Please try again using one of the valid options.");
@@ -293,7 +293,7 @@ public class OrderUI {
 		
 		do {
 
-			System.out.println("======================================");
+			System.out.println("\n======================================");
 			System.out.println("Order History By Customer");
 			System.out.println("======================================");
 			System.out.println("[1] View By Order #");
@@ -327,7 +327,7 @@ public class OrderUI {
 		
 		do {
 
-			System.out.println("======================================");
+			System.out.println("\n======================================");
 			System.out.println("By Order History Customer - By Total Price $$$");
 			System.out.println("======================================");
 			System.out.println("[1] In Ascending Order");
@@ -348,7 +348,7 @@ public class OrderUI {
 				System.out.println();
 				break;
 			case "x":
-				System.out.println("Returning to Order History Menu");
+				System.out.println("Returning to Order History Customer Menu");
 				break;
 			default:
 				System.out.println("Wrong input. Please try again using one of the valid options.");
@@ -364,7 +364,7 @@ public class OrderUI {
 		
 		do {
 
-			System.out.println("======================================");
+			System.out.println("\n======================================");
 			System.out.println("By Order History Customer - By Order #");
 			System.out.println("======================================");
 			System.out.println("[1] In Ascending Order");
@@ -385,7 +385,7 @@ public class OrderUI {
 				System.out.println();
 				break;
 			case "x":
-				System.out.println("Returning to Order History Menu");
+				System.out.println("Returning to Order History Customer Menu");
 				break;
 			default:
 				System.out.println("Wrong input. Please try again using one of the valid options.");

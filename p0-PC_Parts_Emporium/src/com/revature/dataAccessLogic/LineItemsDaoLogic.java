@@ -7,8 +7,12 @@ import java.sql.SQLException;
 import java.util.List;
 import com.revature.models.LineItems;
 import com.revature.util.ConnectionFactory;
+import com.revature.util.Logger;
+import com.revature.util.Logger.LogLevel;
 
 public class LineItemsDaoLogic implements Dao<LineItems>, LineItemInterface {
+	
+	private static Logger logger = new Logger();
 
 	// CRUD Methods
 	@Override
@@ -18,6 +22,9 @@ public class LineItemsDaoLogic implements Dao<LineItems>, LineItemInterface {
 			PreparedStatement pstmt = connect.prepareStatement(query);
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
+			
+			logger.logDB(LogLevel.info, "GET  ->  lineItems");
+			
 			if(rs.next()) {
 				return new LineItems(rs.getInt("id"), rs.getInt("product_id"), rs.getInt("quantity"));
 			}
@@ -36,6 +43,9 @@ public class LineItemsDaoLogic implements Dao<LineItems>, LineItemInterface {
 			PreparedStatement pstmt = connect.prepareStatement(query);
 			pstmt.setInt(1, product_id);
 			ResultSet rs = pstmt.executeQuery();
+			
+			logger.logDB(LogLevel.info, "GET  ->  lineItems");
+			
 			if(rs.next()) {
 				return new LineItems(rs.getInt("id"), rs.getInt("product_id"), rs.getInt("quantity"));
 			}
@@ -64,6 +74,9 @@ public class LineItemsDaoLogic implements Dao<LineItems>, LineItemInterface {
 			pstmt.setInt(1, t.getQuantity());
 			pstmt.setInt(2, t.getProductId());
 			pstmt.execute();
+			
+			logger.logDB(LogLevel.info, "UPDATE  ->  lineItems");
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

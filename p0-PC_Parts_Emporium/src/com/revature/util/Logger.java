@@ -30,6 +30,13 @@ public class Logger {
 		writeToFile(newLog.toString());
 	}
 	
+	public void logDB(LogLevel logLevel, String crudAction) {
+		String message = "Database has been accessed with the action: " + crudAction;
+		
+		Log newLog = new Log(logLevel, LocalDateTime.now(), message);
+		writeToFile(newLog.toString());
+	}
+	
 	private class Log{
 		
 		LogLevel logLevel;

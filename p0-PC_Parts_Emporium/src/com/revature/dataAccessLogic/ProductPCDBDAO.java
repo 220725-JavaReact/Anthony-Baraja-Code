@@ -10,8 +10,12 @@ import java.util.List;
 
 import com.revature.models.ProductPC;
 import com.revature.util.ConnectionFactory;
+import com.revature.util.Logger;
+import com.revature.util.Logger.LogLevel;
 
 public class ProductPCDBDAO implements Dao<ProductPC>, ProductInterface<ProductPC> {
+	
+	private static Logger logger = new Logger();
 
 	@Override
 	public ProductPC get(int id) {
@@ -21,6 +25,9 @@ public class ProductPCDBDAO implements Dao<ProductPC>, ProductInterface<ProductP
 			PreparedStatement pstmt = connect.prepareStatement(query);
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
+			
+			logger.logDB(LogLevel.info, "GET  ->  products");
+			
 			if(rs.next()) {
 				return new ProductPC(rs.getInt("id"), rs.getInt("store_id"), rs.getString("name"), rs.getDouble("price"), rs.getString("description"), rs.getString("category"));
 			}
@@ -40,6 +47,9 @@ public class ProductPCDBDAO implements Dao<ProductPC>, ProductInterface<ProductP
 			PreparedStatement pstmt = connect.prepareStatement(query);
 			pstmt.setInt(1, store_id);
 			ResultSet rs = pstmt.executeQuery();
+			
+			logger.logDB(LogLevel.info, "GET  ->  products");
+			
 			while(rs.next()) {
 				productList.add(new ProductPC(rs.getInt("id"), rs.getInt("store_id"), rs.getString("name"), rs.getDouble("price"), rs.getString("description"), rs.getString("category")));
 			}
@@ -59,6 +69,9 @@ public class ProductPCDBDAO implements Dao<ProductPC>, ProductInterface<ProductP
 			PreparedStatement pstmt = connect.prepareStatement(query);
 			pstmt.setInt(1, store_id);
 			ResultSet rs = pstmt.executeQuery();
+			
+			logger.logDB(LogLevel.info, "GET  ->  products");
+			
 			while(rs.next()) {
 				//productList.add(new ProductPC(rs.getInt("id"), rs.getString("name"), rs.getDouble("price"), rs.getString("description"), rs.getString("category"), rs.getInt("store_id")));
 				productIdSelectionList.add(rs.getInt("id"));
@@ -80,6 +93,9 @@ public class ProductPCDBDAO implements Dao<ProductPC>, ProductInterface<ProductP
 			String query = "select * from products";
 			Statement stmt = connect.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
+			
+			logger.logDB(LogLevel.info, "GET  ->  products");
+			
 			while(rs.next()) {
 				productList.add(new ProductPC(rs.getInt("id"), rs.getInt("store_id"), rs.getString("name"), rs.getDouble("price"), rs.getString("description"), rs.getString("category")));
 			}
@@ -104,6 +120,8 @@ public class ProductPCDBDAO implements Dao<ProductPC>, ProductInterface<ProductP
 			pstmt.setString(4, t.getDescription());
 			pstmt.setString(5, t.getCategory());
 			pstmt.execute();
+			
+			logger.logDB(LogLevel.info, "CREATE  ->  products");
 			
 		} catch (Exception e) {
 			// TODO: handle exception

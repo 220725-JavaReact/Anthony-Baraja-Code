@@ -65,4 +65,12 @@ public class Customer {
         return "Customer [id=" + id + ", name=" + name + ", address=" + address + ", email=" + email + ", phone="
                 + phone + "]";
     }
+    
+    /**
+     * Return Customer's info formatted.
+     */
+    public String getInfo() {
+    	String info = "   Name: " + name + "\n   Address: " + address + "\n   Email: " + email + "\t||\tPhone #: " + phone;
+        return info;
+    }
 }

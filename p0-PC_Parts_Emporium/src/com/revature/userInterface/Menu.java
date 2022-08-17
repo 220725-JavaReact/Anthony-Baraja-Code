@@ -16,7 +16,7 @@ public class Menu {
 	private static StoreFrontInventoryUI storeUI = new StoreFrontInventoryUI();
 	
 	public static void showWelcomeText() {
-		System.out.println("======================================");
+		System.out.println("\n======================================");
 		System.out.println("Welcome to the PC Parts Emporium!");
 		AsciiUI.printComputerArt();
 		System.out.println("This Store Console App will help with all your PC part(s) shopping needs, whether it's for building for upgrading a current system.");
@@ -24,7 +24,7 @@ public class Menu {
 	}
 	
 	public static void showGoodByeText() {
-		System.out.println("============================================================================");
+		System.out.println("\n============================================================================");
 		System.out.println("Thank's for stopping by.");
 		AsciiUI.printComputerTwoArt();
 		System.out.println("Goodbye!");
@@ -39,10 +39,12 @@ public class Menu {
 		String userInput = "";
 		Scanner scanner = new Scanner(System.in);
 		
+		logger.log(LogLevel.info, "A Session has started");
+		
 		// menu interface
 		// while the userInput is not "x" we loop, we present the menu again
 		do {
-			System.out.println("======================================");
+			System.out.println("\n======================================");
 			System.out.println("Main Menu");
 			System.out.println("======================================");
 			System.out.println("[1] Customer Query");
@@ -53,23 +55,28 @@ public class Menu {
 			userInput = scanner.nextLine();
 			
 			//Logger.writeToFile("User input the following: " + userInput);
-			logger.log(LogLevel.info, userInput);
+			//logger.log(LogLevel.info, userInput);
 			
 			switch(userInput) {
 			case "1":
+				logger.log(LogLevel.info, "user is accessing Customer Menu with input: " + userInput);
 				presentCustomerQueryMenu(scanner);
 				break;
 			case "2":
+				logger.log(LogLevel.info, "user is accessing Order Menu with input: " + userInput);
 				presentOrderMenu(scanner);
 				break;
 			case "3":
+				logger.log(LogLevel.info, "user is accessing Inventory Menu with input: " + userInput);
 				presentInventoryMenu(scanner);
 				break;
 			case "x":
 				System.out.println("Closing Store Console App, Goodbye!");
 				scanner.close();
+				logger.log(LogLevel.info, "Session has been closed");
 				break;
 			default:
+				logger.log(LogLevel.info, "user input a wrong option with input: " + userInput);
 				System.out.println("Wrong input. Please try again using one of the valid options.");
 				break;
 			}
@@ -84,7 +91,7 @@ public class Menu {
 		String userInput = "";
 		
 		do {
-			System.out.println("======================================");
+			System.out.println("\n======================================");
 			System.out.println("Customer Query Menu");
 			System.out.println("======================================");
 			System.out.println("[1] View all customers");
@@ -137,7 +144,7 @@ public class Menu {
 		
 		do {
 
-			System.out.println("======================================");
+			System.out.println("\n======================================");
 			System.out.println("Order Menu");
 			System.out.println("======================================");
 			System.out.println("[1] Place order");
@@ -172,7 +179,7 @@ public class Menu {
 		
 		do {
 
-			System.out.println("======================================");
+			System.out.println("\n======================================");
 			System.out.println("Inventory Menu");
 			System.out.println("======================================");
 			System.out.println("[1] View Inventory");
@@ -210,7 +217,7 @@ public class Menu {
 		int userProdSelect = 0;
 		
 		do {
-			System.out.println("======================================");
+			System.out.println("\n======================================");
 			System.out.println("Store Front Selections");
 			System.out.println("======================================");
 			
@@ -235,7 +242,7 @@ public class Menu {
 		int userProdSelect = 0;
 		
 		do {
-			System.out.println("======================================");
+			System.out.println("\n======================================");
 			System.out.println("Product Selection Available at this Location");
 			System.out.println("======================================");
 			
@@ -249,9 +256,10 @@ public class Menu {
 			userInput = sc.nextLine(); // user made a store selection, userInput = id
 			if(!(userInput.equals("x"))){
 				userProdSelect = Integer.parseInt(userInput);
+				int prodId = storeMap.get(userProdSelect).getId();
 				
-				if(bl.productSelectionIdIsValid(userProdSelect, store_id)) {
-					presentProductQuantityPromptForUpdate(sc, store_id, userProdSelect);
+				if(bl.productSelectionIdIsValid(prodId, store_id)) {
+					presentProductQuantityPromptForUpdate(sc, store_id, prodId);
 					return;
 				} else {
 					System.out.println("Not valid product selection, please choose another option");
@@ -266,7 +274,7 @@ public class Menu {
 		int userQtyAmount = 0;
 		
 		do {
-			System.out.println("======================================");
+			System.out.println("\n======================================");
 			System.out.println("Adjust Quantity Amount for " + bl.getProductNameFromId(product_id));
 			System.out.println("======================================");
 			

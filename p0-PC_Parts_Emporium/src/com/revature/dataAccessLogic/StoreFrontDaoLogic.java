@@ -10,8 +10,12 @@ import java.util.List;
 
 import com.revature.models.StoreFront;
 import com.revature.util.ConnectionFactory;
+import com.revature.util.Logger;
+import com.revature.util.Logger.LogLevel;
 
 public class StoreFrontDaoLogic implements Dao<StoreFront> {
+	
+	private static Logger logger = new Logger();
 
 	@Override
 	public StoreFront get(int id) {
@@ -21,6 +25,9 @@ public class StoreFrontDaoLogic implements Dao<StoreFront> {
 			PreparedStatement pstmt = connect.prepareStatement(query);
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
+			
+			logger.logDB(LogLevel.info, "GET  ->  storefront");
+			
 			if(rs.next()) {
 				return new StoreFront(rs.getInt("id"), rs.getString("name"), rs.getString("address"));
 			}
@@ -41,6 +48,9 @@ public class StoreFrontDaoLogic implements Dao<StoreFront> {
 			String query = "select * from storefront";
 			Statement stmt = connect.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
+			
+			logger.logDB(LogLevel.info, "GET  ->  storefront");
+			
 			while(rs.next()) {
 				storeFrontList.add(new StoreFront(rs.getInt("id"), rs.getString("name"), rs.getString("address")));
 			}

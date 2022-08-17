@@ -10,8 +10,12 @@ import java.util.List;
 
 import com.revature.models.Order;
 import com.revature.util.ConnectionFactory;
+import com.revature.util.Logger;
+import com.revature.util.Logger.LogLevel;
 
 public class OrdersDaoLogic implements Dao<Order> {
+	
+	private static Logger logger = new Logger();
 
 	@Override
 	public Order get(int id) {
@@ -20,6 +24,9 @@ public class OrdersDaoLogic implements Dao<Order> {
 			PreparedStatement pstmt = connect.prepareStatement(query);
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
+			
+			logger.logDB(LogLevel.info, "GET  ->  orders");
+			
 			if(rs.next()) {
 				return new Order(rs.getInt("id"), rs.getInt("lineItem_id"), rs.getInt("store_id"), rs.getInt("customer_id"), rs.getInt("order_link"), rs.getDouble("totalPrice"));
 			}
@@ -39,6 +46,9 @@ public class OrdersDaoLogic implements Dao<Order> {
 			String query = "select * from orders";
 			Statement stmt = connect.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
+			
+			logger.logDB(LogLevel.info, "GET  ->  orders");
+			
 			while(rs.next()) {
 				orderList.add(new Order(rs.getInt("id"), rs.getInt("lineItem_id"), rs.getInt("store_id"), rs.getInt("customer_id"), rs.getInt("order_link"), rs.getDouble("totalPrice")));
 			}
@@ -58,6 +68,9 @@ public class OrdersDaoLogic implements Dao<Order> {
 			String query = "select * from orders order by order_link asc";
 			Statement stmt = connect.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
+			
+			logger.logDB(LogLevel.info, "GET  ->  orders");
+			
 			while(rs.next()) {
 				orderList.add(new Order(rs.getInt("id"), rs.getInt("lineItem_id"), rs.getInt("store_id"), rs.getInt("customer_id"), rs.getInt("order_link"), rs.getDouble("totalPrice")));
 			}
@@ -81,6 +94,8 @@ public class OrdersDaoLogic implements Dao<Order> {
 			pstmt.setDouble(5, t.getTotalPrice());
 			pstmt.execute();
 			
+			logger.logDB(LogLevel.info, "CREATE  ->  orders");
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -100,6 +115,9 @@ public class OrdersDaoLogic implements Dao<Order> {
 			pstmt.setDouble(5, t.getTotalPrice());
 			pstmt.setInt(6, t.getId());
 			pstmt.execute();
+			
+			logger.logDB(LogLevel.info, "UPDATE  ->  orders");
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -113,7 +131,10 @@ public class OrdersDaoLogic implements Dao<Order> {
 			PreparedStatement pstmt = connect.prepareStatement(query);
 			pstmt.setInt(1, t.getId());
 			pstmt.execute();
+			
+			logger.logDB(LogLevel.info, "DELETE  ->  orders");
 			System.out.println("Order id: " + t.getId() + ", successfully deleted from the database.");
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -139,6 +160,9 @@ public class OrdersDaoLogic implements Dao<Order> {
 			PreparedStatement pstmt = connect.prepareStatement(query);
 			pstmt.setInt(1, customerId);
 			ResultSet rs = pstmt.executeQuery();
+			
+			logger.logDB(LogLevel.info, "GET  ->  orders");
+			
 			while(rs.next()) {
 				orderList.add(new Order(rs.getInt("id"), rs.getInt("lineItem_id"), rs.getInt("store_id"), rs.getInt("customer_id"), rs.getInt("order_link"), rs.getDouble("totalPrice")));
 			}

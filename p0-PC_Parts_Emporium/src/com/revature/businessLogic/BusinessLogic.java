@@ -24,17 +24,9 @@ import com.revature.dataAccessLogic.CustomerDBDAOLogic;
 
 public class BusinessLogic {
 	
-	//static ProductPCDaoLogic productPCDL;
-	//static LineItemsDaoLogic lineItemsDL;
-	//static OrdersDaoLogic ordersDL;
-	//static StoreFrontDaoLogic storeFrontDL;
-	//static CustomerDaoLogic customerDL;
-	
-	//private static Dao<ProductPC> productDao = new ProductPCDBDAO();
 	private static ProductPCDBDAO productDao = new ProductPCDBDAO();
 	private static LineItemsDaoLogic lineItemsDao = new LineItemsDaoLogic();
 	private static Dao<StoreFront> storeFrontDao = new StoreFrontDaoLogic();
-	//private static Dao<Customer> customerDao = new CustomerDBDAOLogic();
 	private static CustomerDBDAOLogic customerDao = new CustomerDBDAOLogic();
 	private static OrdersDaoLogic orderDao = new OrdersDaoLogic();
 	private static OrderLinkDaoLogic orderLinkDao = new OrderLinkDaoLogic();
@@ -51,7 +43,8 @@ public class BusinessLogic {
 	
 	public void printAllCustomers() {
 		for(Customer customer: customerDao.getAll()){
-			System.out.println(customer);
+			System.out.println("----------------------------------------------------------");
+			System.out.println(customer.getInfo());
 		}
 	}
 	
@@ -65,8 +58,8 @@ public class BusinessLogic {
 		Customer fetchedCustomer = customerDao.getCustomerByName(name);
 		if(fetchedCustomer == null) {
 			System.out.println("No Customer was found.");
-		}else {
-			System.out.println(fetchedCustomer);
+		} else {
+			System.out.println(fetchedCustomer.getInfo());
 		}
 	}
 	
@@ -411,7 +404,6 @@ public class BusinessLogic {
 	}
 
 	public void finalizeOrder(List<Order> currentOrdersList, ArrayList<Integer> orderQtyList) {
-		System.out.println("Order record to database Started");
 		Double grandTotal = 0.0;
 		Double subTotal = 0.0;
 		Double salesTax = 0.0;
@@ -421,25 +413,20 @@ public class BusinessLogic {
 		orderLinkDao.save(currentOrderLink);
 		int currentOrderLinkId = orderLinkDao.getAll().size();
 		currentOrderLink = orderLinkDao.get(currentOrderLinkId);
-		System.out.println("Current OrderLink Id: " + currentOrderLinkId);
 		
 		for(int i = 0; i < currentOrdersList.size(); i++) {
 			Order order = currentOrdersList.get(i);
 			
 			order.setOrder_link(currentOrderLinkId);
-			System.out.println(order);
 			orderDao.save(order);
-			System.out.println("   Order saved to database successfully");
 			
 			subTotal += order.getTotalPrice();
 			salesTax = getLocationSaleTax(order);
 			
 			// Update line item product stock
 			LineItems currentLineItem = lineItemsDao.get(order.getLineItem_id());
-			System.out.println("Before LineItem update: " + currentLineItem);
 			int newQtyAmount = currentLineItem.getQuantity() - orderQtyList.get(i); 
 			currentLineItem.setQuantity(newQtyAmount);
-			System.out.println("   After LineItem update: " + currentLineItem);
 			lineItemsDao.update(currentLineItem);
 		}
 		
@@ -453,9 +440,7 @@ public class BusinessLogic {
 		System.out.println("Grand Total = $" + grandTotalFrmt);
 		
 		// Update order link record with calculated Grand Total
-		System.out.println("Before Order Link update: " + currentOrderLink);
 		currentOrderLink.setSubTotal(grandTotalFrmt);
-		System.out.println("After Order Link update: " + currentOrderLink);
 		orderLinkDao.update(currentOrderLink);		
 		
 		System.out.println("Order record to database submitted successfully!");
