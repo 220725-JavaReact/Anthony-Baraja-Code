@@ -2,6 +2,7 @@
 .metadata
 bin/
 tmp/
+target/
 *.tmp
 *.bak
 *.swp
@@ -22,6 +23,7 @@ p0-PC_Parts_Emporium/src/com/revature/util/StoreSecretClass.java
 *.jsp
 *.war
 *.lst
+*.vscode
 
 # External tool builders
 .externalToolBuilders/
