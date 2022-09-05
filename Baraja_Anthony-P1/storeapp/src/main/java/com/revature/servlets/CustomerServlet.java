@@ -14,9 +14,27 @@ public class CustomerServlet extends HttpServlet{
 		
 		System.out.println("Customer Menu -> GET");
 		resp.setContentType("text/html");
-		resp.getWriter().write("<header><title>Customer Main Menu</title></header><body><h1><strong>Customer Main Menu</strong></h1></body>");
+		resp.getWriter().write("<header><title>Customer Main Menu</title></header><body><h1><strong>Customer Main Menu</strong></h1>");
+
+		// Selection 1: View All Customers
+		resp.getWriter().write("<form method = \"get\" action = \"/storeapp/allCustomers\">\r\n"
+			+ "<p><strong>View All Customers</strong></p>\r\n"
+			+ "<input type = \"submit\" value = \"view all customers\"/></form>");
+
+
+		// Selection 2: Search a customer
+		resp.getWriter().write("<form method = \"get\" action = \"/storeapp/searchCustomer\">\r\n"
+			+ "<p><strong>Search a Customer</strong></p>\r\n"
+			+ "<input type = \"submit\" value = \"search customer\"/></form>");
 		
-	
+		
+		// Selection 3: Add a customer
+		resp.getWriter().write("<form method = \"get\" action = \"/storeapp/addCustomer\">\r\n"
+			+ "<p><strong>Add Customer</strong></p>\r\n"
+			+ "<input type = \"submit\" value = \"add customer\"/></form>");
+
+		
+		resp.getWriter().write("</body>");
 	}
     
 }

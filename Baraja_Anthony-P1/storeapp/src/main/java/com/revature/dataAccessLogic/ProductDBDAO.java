@@ -1,0 +1,144 @@
+package com.revature.dataAccessLogic;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.revature.models.Product;
+import com.revature.util.ConnectionFactory;
+import com.revature.util.Logger;
+import com.revature.util.Logger.LogLevel;
+
+public class ProductDBDAO implements Dao<Product> {
+	
+	private static Logger logger = new Logger();
+
+	@Override
+	public Product get(int id) {
+		
+		try(Connection connect = ConnectionFactory.getInstance().getConnection()){
+			String query = "select * from products where id = ?";
+			PreparedStatement pstmt = connect.prepareStatement(query);
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			
+			logger.logDB(LogLevel.info, "GET  ->  products");
+			
+			if(rs.next()) {
+				return new Product(rs.getInt("id"), rs.getInt("store_id"), rs.getString("name"), rs.getDouble("price"), rs.getString("description"), rs.getString("category"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public List<Product> getAllByStoreId(int store_id) {
+		List<Product> productList = new ArrayList<Product>();
+		
+		try(Connection connect = ConnectionFactory.getInstance().getConnection()) {
+			String query = "select * from products where store_id = ?";
+			PreparedStatement pstmt = connect.prepareStatement(query);
+			pstmt.setInt(1, store_id);
+			ResultSet rs = pstmt.executeQuery();
+			
+			logger.logDB(LogLevel.info, "GET  ->  products");
+			
+			while(rs.next()) {
+				productList.add(new Product(rs.getInt("id"), rs.getInt("store_id"), rs.getString("name"), rs.getDouble("price"), rs.getString("description"), rs.getString("category")));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return productList;
+	}
+	
+	public List<Integer> getAllProductStoreIdList(int store_id) {
+		List<Integer> productIdSelectionList = new ArrayList<Integer>();
+		
+		try(Connection connect = ConnectionFactory.getInstance().getConnection()) {
+			String query = "select id from products where store_id = ?";
+			PreparedStatement pstmt = connect.prepareStatement(query);
+			pstmt.setInt(1, store_id);
+			ResultSet rs = pstmt.executeQuery();
+			
+			logger.logDB(LogLevel.info, "GET  ->  products");
+			
+			while(rs.next()) {
+				//productList.add(new ProductPC(rs.getInt("id"), rs.getString("name"), rs.getDouble("price"), rs.getString("description"), rs.getString("category"), rs.getInt("store_id")));
+				productIdSelectionList.add(rs.getInt("id"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return productIdSelectionList;
+	}
+
+	@Override
+	public List<Product> getAll() {
+		// TODO Auto-generated method stub
+		List<Product> productList = new ArrayList<Product>();
+		
+		try(Connection connect = ConnectionFactory.getInstance().getConnection()) {
+			String query = "select * from products";
+			Statement stmt = connect.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			logger.logDB(LogLevel.info, "GET  ->  products");
+			
+			while(rs.next()) {
+				productList.add(new Product(rs.getInt("id"), rs.getInt("store_id"), rs.getString("name"), rs.getDouble("price"), rs.getString("description"), rs.getString("category")));
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return productList;
+	}
+
+	@Override
+	public void save(Product t) {
+		
+		try(Connection connect = ConnectionFactory.getInstance().getConnection()) {
+			String query = "Insert into products (id, store_id, name, price, description, category) values (DEFAULT,?,?,?,?,?)";
+			PreparedStatement pstmt = connect.prepareStatement(query);
+			pstmt.setString(1, t.getName());
+			pstmt.setInt(2, t.getStoreId());
+			pstmt.setDouble(3, t.getPrice());
+			pstmt.setString(4, t.getDescription());
+			pstmt.setString(5, t.getCategory());
+			pstmt.execute();
+			
+			logger.logDB(LogLevel.info, "CREATE  ->  products");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void update(Product t) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void delete(Product t) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
