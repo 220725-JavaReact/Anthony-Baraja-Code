@@ -14,7 +14,7 @@ public class OrderServlet extends HttpServlet{
         
         System.out.println("Order Menu -> GET");
         resp.setContentType("text/html");
-        resp.getWriter().write("<header><title>Order Main Menu</title></header><body><h1><strong>Order Main Menu</strong></h1>");
+        resp.getWriter().write("<header><title>Order Main Menu</title></header><body><nav><a href=\"./index.html\">Home</a></nav><h1><strong>Order Main Menu</strong></h1>");
 
         // Selection 1: Place an Order
 		resp.getWriter().write("<form method = \"get\" action = \"/storeapp/placeOrder\">\r\n"

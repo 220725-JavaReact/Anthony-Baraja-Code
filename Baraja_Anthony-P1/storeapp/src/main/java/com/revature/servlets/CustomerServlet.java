@@ -14,7 +14,7 @@ public class CustomerServlet extends HttpServlet{
 		
 		System.out.println("Customer Menu -> GET");
 		resp.setContentType("text/html");
-		resp.getWriter().write("<header><title>Customer Main Menu</title></header><body><h1><strong>Customer Main Menu</strong></h1>");
+		resp.getWriter().write("<header><title>Customer Main Menu</title></header><body><nav><a href=\"./index.html\">Home</a></nav><h1><strong>Customer Main Menu</strong></h1>");
 
 		// Selection 1: View All Customers
 		resp.getWriter().write("<form method = \"get\" action = \"/storeapp/allCustomers\">\r\n"
