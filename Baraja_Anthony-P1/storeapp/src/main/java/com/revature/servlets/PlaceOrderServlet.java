@@ -158,7 +158,8 @@ public class PlaceOrderServlet extends HttpServlet{
         
         PrintWriter out = resp.getWriter();
 
-        out.write("<h2>Final Transaction</h2><body>");
+        resp.setContentType("text/html");
+        out.write("<html><h2>Final Transaction</h2><body>");
         out.write(bl.displayFinalizeOrder(fullOrder, orderQtyList));
 
         out.write("<form method = \"post\" action = \"/storeapp/placeOrderLoop\">\r\n");

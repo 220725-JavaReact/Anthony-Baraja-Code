@@ -17,7 +17,7 @@ public class AllCustomersServlet extends HttpServlet{
 		
 		System.out.println("All Customers -> GET, All");
 		resp.setContentType("text/html");
-		resp.getWriter().write("<header><title>All Customers Result</title></header><body><h1><strong>All Customers</strong></h1>");
+		resp.getWriter().write("<header><title>All Customers Result</title></header><nav><a href=\"./index.html\">Home</a></nav><body><h1><strong>All Customers</strong></h1>");
 
 		// Display All Customers		
 		resp.getWriter().write(bl.displayAllCustomers());

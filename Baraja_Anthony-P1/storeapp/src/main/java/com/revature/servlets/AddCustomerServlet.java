@@ -41,9 +41,8 @@ public class AddCustomerServlet extends HttpServlet {
         String phone = req.getParameter("customer_phone");
         
         bl.addCustomer(name, address, email, phone);
-        // Display Searched Customer if exist in DB
-        //resp.getWriter().write(bl.displaySearchedCustomer(name));
-        resp.getWriter().write("<body><h1><strong>Customer " + name + " added successfully</strong></h1></body>");
+        resp.setContentType("text/html");
+        resp.getWriter().write("<html><nav><a href=\"./index.html\">Home</a></nav><body><h1><strong>Customer " + name + " added successfully</strong></h1></body>");
 
     }
     

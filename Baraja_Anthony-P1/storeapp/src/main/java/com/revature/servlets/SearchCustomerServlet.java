@@ -19,9 +19,9 @@ public class SearchCustomerServlet extends HttpServlet {
 		
 		System.out.println("Search Customer -> GET");
 		resp.setContentType("text/html");
-		resp.getWriter().write("<header><title>Search a Customer</title></header><body><h1><strong>Search a Customer</strong></h1>");
+		resp.getWriter().write("<header><title>Search a Customer</title></header><nav><a href=\"./index.html\">Home</a></nav><body><h1><strong>Search a Customer</strong></h1>");
 
-		// Display text box and submit button	
+		// Display text box and submit button
 		resp.getWriter().write("<form method = \"post\" action = \"/storeapp/searchCustomer\">\r\n"
 			+ "Enter Name: <input type = \"text\" name = \"customer_name\" placeholder=\"customer name\" />\r\n"
 			+ "<input type = \"submit\" value = \"search customer\"/></form>");
@@ -35,9 +35,14 @@ public class SearchCustomerServlet extends HttpServlet {
 	        throws ServletException, IOException{
         
         String name = req.getParameter("customer_name");
+
+		resp.setContentType("text/html");
+		resp.getWriter().write("<header><title>Search a Customer</title></header><nav><a href=\"./index.html\">Home</a></nav><body>");
         
         // Display Searched Customer if exist in DB
         resp.getWriter().write(bl.displaySearchedCustomer(name));
+
+		resp.getWriter().write("</body>");
 
     }
     
