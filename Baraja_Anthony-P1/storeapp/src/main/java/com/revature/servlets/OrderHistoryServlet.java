@@ -15,5 +15,6 @@ public class OrderHistoryServlet extends HttpServlet{
         System.out.println("Order History Menu -> GET");
         resp.setContentType("text/html");
         resp.getWriter().write("<header><title>Order History Menu</title></header><body><h1><strong>Order History Menu</strong></h1>");
+        resp.getWriter().write("<body><p>Feature In Progress</p></body>");
     }
 }

@@ -16,6 +16,7 @@ local.properties
 *.log
 *.class
 p0-PC_Parts_Emporium/src/com/revature/util/StoreSecretClass.java
+Baraja_Anthony-P1/storeapp/src/main/java/com/revature/util/StoreSecretClass.java
 *.xml
 *.MF
 *.properties
